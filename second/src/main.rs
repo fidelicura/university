@@ -1,16 +1,22 @@
-mod character;
+mod camera;
 mod fruit;
+mod player;
 
 use bevy::prelude::*;
 
+use camera::Camera;
+use fruit::Fruit;
+use player::{Player, PlayerScore};
+
 fn main() {
     App::new()
+        // plugins
         .add_plugins(
             DefaultPlugins
                 .set(ImagePlugin::default_nearest())
                 .set(WindowPlugin {
                     primary_window: Some(Window {
-                        title: "Really nice game".into(),
+                        title: "Catcher".into(),
                         resolution: (640., 480.).into(),
                         resizable: false,
                         ..default()
@@ -19,43 +25,17 @@ fn main() {
                 })
                 .build(),
         )
-        .add_systems(Startup, setup)
-        .add_systems(Update, character_movement)
+        // setup
+        .add_systems(Startup, Camera::setup)
+        .add_systems(Startup, Player::setup)
+        .add_systems(Startup, Fruit::setup)
+        // player
+        .add_systems(Update, Player::movement_handler)
+        .add_systems(Update, Player::movement_animation_handler)
+        .insert_resource(PlayerScore::new(0u16))
+        // fruits
+        .add_systems(Update, Fruit::movement_handler)
+        .add_systems(Update, Fruit::lifetime_handler)
+        // event loop
         .run();
-}
-
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    commands.spawn(Camera2dBundle::default());
-
-    let texture: Handle<Image> = asset_server.load("character.png");
-
-    commands.spawn(SpriteBundle {
-        sprite: Sprite {
-            custom_size: Some(Vec2::new(100., 100.)),
-            ..default()
-        },
-        texture,
-        ..default()
-    });
-}
-
-fn character_movement(
-    mut characters: Query<(&mut Transform, &Sprite)>,
-    input: Res<Input<KeyCode>>,
-    time: Res<Time>,
-) {
-    characters.iter_mut().for_each(|(mut transform, _)| {
-        if input.pressed(KeyCode::W) {
-            transform.translation.y += 100. * time.delta_seconds();
-        }
-        if input.pressed(KeyCode::S) {
-            transform.translation.y -= 100. * time.delta_seconds();
-        }
-        if input.pressed(KeyCode::D) {
-            transform.translation.x += 100. * time.delta_seconds();
-        }
-        if input.pressed(KeyCode::A) {
-            transform.translation.x -= 100. * time.delta_seconds();
-        }
-    })
 }
