@@ -1,3 +1,6 @@
+mod character;
+mod fruit;
+
 use bevy::prelude::*;
 
 fn main() {
