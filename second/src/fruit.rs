@@ -1,7 +1,7 @@
+use std::fmt::Debug;
+
 use bevy::prelude::*;
 use rand::{thread_rng, Rng};
-
-const FRUIT_SPAWN_TIME: f32 = 0.5;
 
 const FRUITS: [&str; 14] = [
     "apple",
@@ -19,6 +19,8 @@ const FRUITS: [&str; 14] = [
     "star",
     "watermelon",
 ];
+
+static mut FRUIT_SPAWN_TIME: f32 = 2.; // за глобал стейт, конечно, бьют по рукам...
 
 #[derive(Debug, Component)]
 pub(crate) struct Fruit {
@@ -67,7 +69,37 @@ impl Fruit {
         Transform::from_xyz(x, 300., 0.)
     }
 
-    pub(crate) fn movement_handler() {}
+    pub(crate) fn movement_handler(mut query: Query<(&mut Transform, &Self)>) {
+        query.iter_mut().for_each(|(mut fruit_transform, _)| {
+            let fruit_translation = &mut fruit_transform.translation;
 
-    pub(crate) fn lifetime_handler() {}
+            fruit_translation.y -= 5.;
+        })
+    }
+
+    pub(crate) fn lifetime_handler(
+        mut commands: Commands,
+        time: Res<Time>,
+        mut fruits: Query<(Entity, &mut Self)>,
+    ) {
+        fruits.iter_mut().for_each(|(entity, mut fruit)| {
+            fruit.lifetime.tick(time.delta());
+
+            if fruit.lifetime.finished() {
+                commands.entity(entity).despawn();
+            }
+        })
+    }
+}
+
+#[derive(Debug, Component)]
+pub(crate) struct FruitSpawner;
+
+impl FruitSpawner {
+    pub(crate) fn setup(commands: Commands, time: Res<Time>, asset_server: Res<AssetServer>) {
+        if time.elapsed_seconds() >= unsafe { FRUIT_SPAWN_TIME } {
+            Fruit::setup(commands, asset_server);
+            unsafe { FRUIT_SPAWN_TIME += 2. }; // ай-ай-ай
+        }
+    }
 }
