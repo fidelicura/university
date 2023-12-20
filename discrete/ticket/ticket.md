@@ -12,7 +12,7 @@
 $A - X = \{1, 2\}$
 $B - A = \{3, 6\}$
 $\not A = \varnothing = \{\}$
-$\not X \neq \varnothing = \{1, 2, 3, 8\}$
+$\not X \neq \varnothing = \{\not1, \not2, \not3, 8\}$
 Вычеркиваем $1, 2, 3$, ответ - $8$.
 
 
@@ -79,9 +79,9 @@ $c_{2} = \frac{\bigtriangleup_{2}}{\bigtriangleup} = \frac{-3}{3.75}$;
 
 ### №5
 
-1) $9 \times 9 \times 9 \times 9 = 6561$ вариантов;
-2) $1 + 9 \times 9 + 1 = 83$ варианта;
-3) $9 \times 8 \times 7 \times 6 = 3024$ варианта;
+1\) $9 \times 9 \times 9 \times 9 = 6561$ вариантов;
+2\) $1 + 9 \times 9 + 1 = 83$ варианта;
+3\) $9 \times 8 \times 7 \times 6 = 3024$ варианта;
 
 ### №6
 
