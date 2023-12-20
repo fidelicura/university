@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+
+fib() {
+  local number term1 term2
+  number=$1
+  if ((number < 2))
+    then
+      ((tmp=number))
+  else
+      ((--number))
+      term1=$(fib "$number")
+      ((--number))
+      term2=$(fib "$number")
+      ((tmp=term1+term2))
+  fi
+  ((result=result+tmp))
+  printf '%s\n' "$result"
+}
+
+fib "$1"

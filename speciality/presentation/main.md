@@ -1,5 +1,6 @@
 ---
-title: Доклады, формула, маршрут и игра
+title: Введение в специальность
+sub_title: Доклады, формула, маршрут и игра
 author: СП-23, Безуглый Кирилл
 ---
 
@@ -32,7 +33,7 @@ alert(fibonacci(10));
 
 Демонстрационный вариант (язык `Bash`):
 ```bash +exec
-./run.sh
+./fib 10
 ```
 
 <!-- end_slide -->
@@ -69,10 +70,6 @@ ymaps.ready(init);
 >Результат кода на следующем слайде.
 
 <!-- end_slide -->
-
-![](map.png)
-
-<!-- end_slide -->
 Игра
 ---
 <!-- column_layout: [2, 1] -->
@@ -93,18 +90,21 @@ impl FruitSpawner {
         time: Res<Time>,
         asset_server: Res<AssetServer>
     ) {
-        if time.elapsed_seconds() >= unsafe { FRUIT_SPAWN_TIME } {
-            Fruit::setup(commands, asset_server);
-            unsafe { FRUIT_SPAWN_TIME += 2. }; // ай-ай-ай
+        if time.elapsed_seconds() >= FST {
+            Fruit::setup(
+                commands,
+                asset_server
+            );
+            FST += 2
         }
     }
 }
 ```
 
+>Видео-демонстрация игры в отдельном слайде.
+
 <!-- column: 1 -->
 ![](cat.png)
-
->Видео-демонстрация игры в отдельном слайде.
 
 <!-- reset_layout -->
 
