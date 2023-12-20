@@ -38,7 +38,42 @@ $\mathbb D = 1$. Дискриминант больше нуля, значит и
 $x_{1} = \frac{-b + \sqrt{\mathbb D}}{2 \times a} = \frac{-5 + \sqrt{1}}{4} = \frac{-4}{4} = -1$;
 $x_{2} = \frac{-b - \sqrt{\mathbb D}}{2 \times a} = \frac{-5 - \sqrt{1}}{4} = \frac{-6}{4} - -1 \frac{2}{4} = -1 \frac{1}{2} = -1.5$;
 $x_{1} = -1,\ x_{2} = -1.5$;
+Составим формулу общего члена на основе корней дискриминанта:
+$C_{1} \times (-1)^{n} + C_{2} \times (-1.5)^{n}$;
+При $f_{1}$: $C_{1} \times (-1)^{1} + C_{2} \times (-1.5)^{1} = 1$;
+При $f_{2}$: $C_{1} \times (-1)^2 + C_{2} \times (-1.5)^{2} = 2$, сократим до $C_{1} + C_{2} \times 2.25 = 2$;
+Составим _общую_ матрицу и решим:
+$
+\begin{bmatrix}
+-1 & -1.5 & \| 1
+1 & 2.25 & \| 2
+\end{bmatrix}
+$
+Найдем $\bigtriangleup_{1}$, $\bigtriangleup_{2}$ и _общее решение_ в виде $\bigtriangleup$:
+$\bigtriangleup_{1}$ = $
+\begin{bmatrix}
+1 & -1.5
+2 & 2.25
+\end{bmatrix}
+$ = $1 \times 2.25 - 2 \times -1.5 = 2.25 + 3 = 5.25$
 
+$\bigtriangleup_{2}$ = $
+\begin{bmatrix}
+-1 & 1
+1 & 2
+\end{bmatrix}
+$ = $-1 \times 2 - 1 \times 1 = -2 - 1 = -3$
+
+$\bigtriangleup$ = $
+\begin{bmatrix}
+-1 & -1.5
+1 & 2.25
+\end{bmatrix}
+$ = $-1 \times 2.25 - 1 \times -1.5 = 2.25 + 1.5 = 3.75$
+Найдем $c_{1}$ и $c_{2}$:
+$c_{1} = \frac{\bigtriangleup_{1}}{\bigtriangleup} = \frac{5.25}{3.75}$;
+$c_{2} = \frac{\bigtriangleup_{2}}{\bigtriangleup} = \frac{-3}{3.75}$;
+Отсюда, _формула общего члена_ будет иметь вид $f_{n} = c_{1} \times f_{n-1} + c_{2} \times f_{n-2}$.
 
 ### №5
 
