@@ -1,0 +1,14 @@
+This is TeX, Version 3.141592653 (TeX Live 2021/VoidLinux) (preloaded format=tex 2023.12.20)  20 DEC 2023 11:31
+**ticket.md
+(./ticket.md
+! You can't use `macro parameter character #' in vertical mode.
+l.1 #
+      <p align="center">^^d0^^91^^d0^^b5^^d0^^b7^^d1^^83^^d0^^b3^^d0^^bb^^d1...
+
+? 
+! Emergency stop.
+l.1 #
+      <p align="center">^^d0^^91^^d0^^b5^^d0^^b7^^d1^^83^^d0^^b3^^d0^^bb^^d1...
+End of file on the terminal!
+
+No pages of output.

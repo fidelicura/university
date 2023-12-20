@@ -3,7 +3,7 @@
 ### №1
 
 Пример инъективной функции - любая **хэш-функция**. Она получает любое значение (первое условие), отображается на не каждое результативное значение (второе условие).
-Или, $\forall n \in \mathbb N: f(n^2)$.
+Или, $\forall n \in \mathbb N: f(n) = n^{2}$.
 
 ### №2
 
@@ -18,10 +18,12 @@ $\not X \neq \varnothing = \{1, 2, 3, 8\}$
 
 ### №3
 
-$(X - Y) \cap (X \bigtriangleup Z) = X \cap \not Y \cap \not Z$
-$(X \cap \not Y) \cap (X \bigtriangleup Z) = X \cap \not Y \cap \not Z$
-$X \cap \not Y \cap ((X - Z) \cup (Z - X)) = X \cap \not Y \cap \not Z$
-$X \cap \not Y \cap ((X \cap \not Z) \cup (Z \cap \not X)) = X \cap \not Y \cap \not Z$
+$(X - Y) \cap (X \bigtriangleup Z) = X \cap \not Y \cap \not Z$;
+$(X \cap \not Y) \cap (X \bigtriangleup Z) = X \cap \not Y \cap \not Z$;
+$X \cap \not Y \cap ((X - Z) \cup (Z - X)) = X \cap \not Y \cap \not Z$;
+$X \cap \not Y \cap ((X - Z) \cup (Z - X)) = X \cap \not Y \cap \not Z$;
+$X \cap \not Y \cap ((X \cap \not Z) \cup (Z \cap \not X)) = X \cap \not Y \cap \not Z$;
+$X \cap \not Y \cap (X \cap \not Z \cup Z \cap \not X) = X \cap \not Y \cap \not Z$;
 
 ### №4
 
