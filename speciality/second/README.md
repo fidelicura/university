@@ -5,4 +5,5 @@ To build this in WASM, follow this guide:
 2) Install WASM target for Rust via `rustup target add wasm32-unknown-unknown`;
 3) Execute `trunk build`;
 4) Copy `assets` folder to `dist` folder;
-5) Run `run.sh` script (you'll need Python);
+5) Correct absolute path to relative (`./` instead of `/`) in `index.html` (bug of `trunk` WASM generation);
+6) Run `run.sh` script (you'll need Python);
