@@ -2,21 +2,22 @@
 
 
 
+RED="\033[31m"
+NOC="\033[0m"
+
 fib() {
-  local number term1 term2
-  number=$1
-  if ((number < 2))
-    then
-      ((tmp=number))
-  else
-      ((--number))
-      term1=$(fib "$number")
-      ((--number))
-      term2=$(fib "$number")
-      ((tmp=term1+term2))
-  fi
-  ((result=result+tmp))
-  printf '%s\n' "$result"
+  number=11
+  x=0
+  y=1
+  i=2
+  while [ $i -lt $number ]
+  do
+  i=`expr $i + 1`
+  z=`expr $x + $y`
+  echo -e "$REDОтвет: $z$NOC"
+  x=$y
+  y=$z
+  done
 }
 
-fib "$1"
+fib | tail -1
