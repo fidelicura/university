@@ -1,9 +1,4 @@
-typedef struct {
-    float adult;
-    float child;
-} flightCost;
-
-typedef int flightDuration;
+#include "flight.h"
 
 static flightCost flightCostCreate(const float adult, const float child) {
     flightCost result = {
@@ -14,19 +9,13 @@ static flightCost flightCostCreate(const float adult, const float child) {
     return result;
 }
 
-typedef struct {
-    int number;
-    double distance;
-    flightCost cost;
-    flightDuration duration;
-} flight;
-
 static flight flightCreate(
-    const int number, const double distance,
+    const int id, const double distance, const char* destination,
     const flightCost cost, const flightDuration duration
 ) {
     flight result = {
-        .number = number,
+        .id = id,
+        .destination = destination,
         .distance = distance,
         .cost = cost,
         .duration = duration,
@@ -35,7 +24,10 @@ static flight flightCreate(
     return result;
 }
 
-#define FLIGHT_LIST_AMOUNT 50
+// made for reading convinience
+#ifndef FLIGHT_LIST_AMOUNT
+    #define FLIGHT_LIST_AMOUNT 50
+#endif
 static flight flightList[FLIGHT_LIST_AMOUNT] = {0};
 
 // 0 if inserted successfully;
@@ -54,11 +46,6 @@ static int flightListInsert(int idx, flight elem) {
 static flight flightListGet(int idx) {
     return flightList[idx];
 }
-
-typedef enum {
-    Descending,
-    Ascending,
-} sortType;
 
 static void __flightListDescendingSort();
 static void __flightListAscendingSort();
