@@ -1,5 +1,6 @@
 #include "flight.h"
 
+// TODO: check for price lower than zero
 static flightCost flightCostCreate(const float adult, const float child) {
     flightCost result = {
         .adult = adult,
@@ -9,6 +10,9 @@ static flightCost flightCostCreate(const float adult, const float child) {
     return result;
 }
 
+// TODO:
+// - check for distance and duration lower than zero
+// - check for id lower or equal zero 
 static flight flightCreate(
     const int id, const double distance, const char* destination,
     const flightCost cost, const flightDuration duration
