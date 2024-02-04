@@ -1,7 +1,12 @@
-CFLAGS ?= -Wall -Wextra -std=c99 -pedantic -Werror -march=native -O3
+CFLAGS ?= -Wall -Wextra -std=c99 -pedantic -Werror -march=native -O3 
 
 aas: main.o flight.o writer.o reader.o
 	cc $(CFLAGS) -lc main.o flight.o writer.o reader.o -o aas
+	rm main.o flight.o writer.o reader.o
+
+debug: main.o flight.o writer.o reader.o
+	cc $(CFLAGS) main.o flight.o writer.o reader.o -o aas -g 
+	rm main.o flight.o writer.o reader.o
 
 flight.o:
 	cc $(CFLAGS) -c logic/flight.c
