@@ -46,39 +46,30 @@ static void closeAdditional(void) {
 
 static flight serializeFormattedLine(char* line) {
     char* parsed = strtok(line, " ");
-    printf("Token: %s\n", parsed);
     int id = atoi(parsed);
 
     parsed = strtok(NULL, " ");
-    printf("Token: %s\n", parsed);
-    const char* destination = parsed;
+    char* destination = strdup(parsed);
 
     parsed = strtok(NULL, " ");
-    printf("Token: %s\n", parsed);
     double distance = atof(parsed);
 
     parsed = strtok(NULL, ",");
-    printf("Token: %s\n", parsed);
     float adult = atoi(parsed);
     parsed = strtok(NULL, " ");
-    printf("Token: %s\n", parsed);
     float child = atoi(parsed);
     flightCost cost = flightCostCreate(adult, child);
 
     parsed = strtok(NULL, ":");
-    printf("Token: %s\n", parsed);
-    int start_minutes = atoi(parsed);
-    parsed = strtok(NULL, "-");
-    printf("Token: %s\n", parsed);
     int start_hours = atoi(parsed);
+    parsed = strtok(NULL, "-");
+    int start_minutes = atoi(parsed);
     time start_time = timeCreate(start_hours, start_minutes);
 
     parsed = strtok(NULL, ":");
-    printf("Token: %s\n", parsed);
-    int end_minutes = atoi(parsed);
-    parsed = strtok(NULL, "");
-    printf("Token: %s\n", parsed);
     int end_hours = atoi(parsed);
+    parsed = strtok(NULL, "");
+    int end_minutes = atoi(parsed);
     time end_time = timeCreate(end_hours, end_minutes);
 
     flightDuration duration = flightDurationCreate(start_time, end_time);

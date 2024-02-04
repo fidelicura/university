@@ -3,7 +3,7 @@
 #include "writer.h"
 #include "../logic/flight.h"
 
-#define TABLE_MAX_WIDTH 69
+#define TABLE_MAX_WIDTH 70
 
 // WARNING: pass only one line header
 static void printHeader(const char* header) {
@@ -22,11 +22,6 @@ static void printHeader(const char* header) {
     putc(' ', stdout);
     putc('|', stdout);
     putc('\n', stdout);
-
-    for (int i = 0; i < (len - 5); i++) {
-        putc('-', stdout);
-    }
-    putc('\n', stdout);
 }
 
 static void printDelimiter() {
@@ -37,7 +32,7 @@ static void printDelimiter() {
 
 static void printLine(flight data) {
     printf(
-        "| %3i | %18s | %6.2f | %6i-%6i | %2i:%2i-%2i:%2i |\n",
+        "| %3i | %18s | %6.2f | %6i-%6i | %02i:%02i-%02i:%02i |\n",
         data.id, data.destination, data.distance,
         data.cost.adult, data.cost.child,
         data.duration.start.hours, data.duration.start.minutes, 
