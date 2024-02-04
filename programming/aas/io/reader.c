@@ -1,7 +1,10 @@
+#define  _GNU_SOURCE
+
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 #include "../logic/flight.h"
 
 #define BASE_INFO_SIZE 30
@@ -122,7 +125,7 @@ static flight parseLineAdditional(void) {
     return result;
 }
 
-static int readBase(void) {
+int readBase(void) {
     openBase();
     for (int i = 0; i < BASE_INFO_SIZE; i++) {
         flight result = parseLineBase();
@@ -133,7 +136,7 @@ static int readBase(void) {
     return 0;
 }
 
-static int readAdditional(void) {
+int readAdditional(void) {
     openAdditional();
     for (int i = 0; i < ADDITIONAL_INFO_SIZE; i++) {
         flight result = parseLineAdditional();

@@ -6,7 +6,6 @@
 // WARNING: pass only one line header
 static void printHeader(const char* header) {
     int len = strlen(header);
-    int str_counter = 0;
 
     for (int i = 0; i < (len + 4); i++) {
         putc('-', stdout);
