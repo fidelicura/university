@@ -10,6 +10,24 @@ static flightCost flightCostCreate(const float adult, const float child) {
     return result;
 }
 
+static time timeCreate(const int hours, const int minutes) {
+    time result = {
+        .hours = hours,
+        .minutes = minutes,
+    };
+
+    return result;
+}
+
+static flightDuration flightDurationCreate(const time start, const time end) {
+    flightDuration result = {
+        .start = start,
+        .end = end,
+    };
+
+    return result;
+}
+
 // TODO:
 // - check for distance and duration lower than zero
 // - check for id lower or equal zero 

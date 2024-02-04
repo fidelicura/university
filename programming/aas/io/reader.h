@@ -1,4 +1,4 @@
 #pragma once
 
-static void readBase(void);
-static void readAdditional(void);
+int readBase(void);
+int readAdditional(void);
