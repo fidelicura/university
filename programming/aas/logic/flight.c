@@ -1,7 +1,8 @@
+#include <stdlib.h>
 #include "flight.h"
 
 // TODO: check for price lower than zero
-static flightCost flightCostCreate(const float adult, const float child) {
+flightCost flightCostCreate(const int adult, const int child) {
     flightCost result = {
         .adult = adult,
         .child = child,
@@ -10,7 +11,7 @@ static flightCost flightCostCreate(const float adult, const float child) {
     return result;
 }
 
-static time timeCreate(const int hours, const int minutes) {
+time timeCreate(const int hours, const int minutes) {
     time result = {
         .hours = hours,
         .minutes = minutes,
@@ -19,7 +20,7 @@ static time timeCreate(const int hours, const int minutes) {
     return result;
 }
 
-static flightDuration flightDurationCreate(const time start, const time end) {
+flightDuration flightDurationCreate(const time start, const time end) {
     flightDuration result = {
         .start = start,
         .end = end,
@@ -31,7 +32,7 @@ static flightDuration flightDurationCreate(const time start, const time end) {
 // TODO:
 // - check for distance and duration lower than zero
 // - check for id lower or equal zero 
-static flight flightCreate(
+flight flightCreate(
     const int id, const double distance, const char* destination,
     const flightCost cost, const flightDuration duration
 ) {
@@ -54,10 +55,17 @@ static flight flightList[FLIGHT_LIST_AMOUNT] = {0};
 
 // 0 if inserted successfully;
 // 1 if some else (i.e. out of bounds)
-static int flightListInsert(int idx, flight elem) {
+int flightListInsert(int idx, flight elem) {
     if (idx >= 50 || idx < 0) {
         return 1;
     } else {
+        // check if previous element by index - 1 is present
+        // to save array coherence
+        if (idx != 0) {
+            if (flightList[idx - 1].id == 0) {
+                return 1;
+            }
+        }
         flightList[idx] = elem;
         return 0;
     }
@@ -65,18 +73,32 @@ static int flightListInsert(int idx, flight elem) {
 
 // TODO: handle situations where you
 // may access out of bounds or negative indices
-static flight flightListGet(int idx) {
+flight flightListGet(int idx) {
     return flightList[idx];
 }
 
-static void __flightListDescendingSort();
-static void __flightListAscendingSort();
+int flightListLen() {
+    int counter = 0;
 
-static void flightListSort(const sortType type) {
+    for (int i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
+        if (!(flightList[i].id <= 0)) {
+            counter += 1;
+        } else {
+            break;
+        }
+    }
+
+    return counter;
+}
+
+static void __flightListDescendingSort(const int low, const int high);
+static void __flightListAscendingSort(const int low, const int high);
+
+void flightListSort(const sortType type, const int high) {
     if (type == Descending) {
-        __flightListDescendingSort();
+        __flightListDescendingSort(0, high);
     } else {
-        __flightListAscendingSort();
+        __flightListAscendingSort(0, high);
     }
 }
 

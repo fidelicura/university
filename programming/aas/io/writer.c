@@ -1,11 +1,74 @@
+#include <stdio.h>
+#include <string.h>
 #include "writer.h"
+#include "../logic/flight.h"
 
-static void printHeader(const char* header) {}
+// WARNING: pass only one line header
+static void printHeader(const char* header) {
+    int len = strlen(header);
+    int str_counter = 0;
 
-void printUnsorted(void) {}
+    for (int i = 0; i < (len + 4); i++) {
+        putc('-', stdout);
+    }
+    putc('\n', stdout);
 
-void printSorted(void) {}
+    putc('|', stdout);
+    for (int i = 0; i < (len + 2); i++) {
+        putc(' ', stdout);
+    }
+    putc('|', stdout);
+    putc('\n', stdout);
 
-void printDefined(void) {}
+    putc('|', stdout);
+    putc(' ', stdout);
+    for (int i = 0; i < len; i++) {
+        putc(header[i], stdout);
+    }
+    putc(' ', stdout);
+    putc('|', stdout);
+    putc('\n', stdout);
 
-void printMaxDuration(void) {}
+    putc('|', stdout);
+    for (int i = 0; i < (len + 2); i++) {
+        putc(' ', stdout);
+    }
+    putc('|', stdout);
+    putc('\n', stdout);
+}
+
+static void printDelimiter() {
+    putc('-', stdout);
+}
+
+static void printLine(flight data) {
+    printf(
+        "| %3i | %18s | %8.2f | %6i-%6i | %2i:%2i-%2i:%2i |\n",
+        data.id, data.destination, data.distance,
+        data.cost.adult, data.cost.child,
+        data.duration.start.hours, data.duration.start.minutes, 
+        data.duration.end.hours, data.duration.end.minutes 
+    );
+}
+
+void printDefault(const char* header) {
+    printHeader(header);
+    printDelimiter();
+    for (int i = 0; i < flightListLen(); i ++) {
+        flight line = flightListGet(i);
+        printLine(line);
+    }
+    printDelimiter();
+}
+
+void printSorted(const char* header) {
+    printHeader(header);
+}
+
+void printDefined(const char* header) {
+    printHeader(header);
+}
+
+void printMaxDuration(const char* header) {
+    printHeader(header);
+}

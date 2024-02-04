@@ -1,11 +1,11 @@
 #pragma once
 
 typedef struct {
-    float adult;
-    float child;
+    int adult;
+    int child;
 } flightCost;
 
-flightCost flightCostCreate(const float adult, const float child);
+flightCost flightCostCreate(const int adult, const int child);
 
 typedef struct {
     int hours;
@@ -37,10 +37,11 @@ flight flightCreate(
 #define FLIGHT_LIST_AMOUNT 50
 int flightListInsert(int idx, flight elem);
 flight flightListGet(int idx);
+int flightListLen();
 
 typedef enum {
     Descending,
     Ascending,
 } sortType;
 
-void flightListSort(const sortType type);
+void flightListSort(const sortType type, const int high);

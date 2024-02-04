@@ -1,6 +1,6 @@
 #pragma once
 
-void printUnsorted(void);
-void printSorted(void);
-void printDefined(void);
-void printMaxDuration(void);
+void printUnsorted(const char* header);
+void printSorted(const char* header);
+void printDefined(const char* header);
+void printMaxDuration(const char* header);
