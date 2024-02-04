@@ -1,11 +1,11 @@
 CFLAGS ?= -Wall -Wextra -std=c99 -pedantic -Werror -march=native -O3 
 
 aas: main.o flight.o writer.o reader.o
-	cc $(CFLAGS) -lc main.o flight.o writer.o reader.o -o aas
+	cc $(CFLAGS) -lc main.o flight.o writer.o reader.o -o aas-release
 	rm main.o flight.o writer.o reader.o
 
 debug: main.o flight.o writer.o reader.o
-	cc $(CFLAGS) main.o flight.o writer.o reader.o -o aas -g 
+	cc $(CFLAGS) main.o flight.o writer.o reader.o -o aas-debug -g 
 	rm main.o flight.o writer.o reader.o
 
 flight.o:
@@ -21,4 +21,4 @@ main.o: main.c
 	cc $(CFLAGS) -c main.c
 
 clean:
-	rm aas main.o flight.o writer.o reader.o
+	rm aas-release aas-debug main.o flight.o writer.o reader.o

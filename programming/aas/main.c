@@ -11,9 +11,11 @@ int main(void)
     }
     printDefault("ВСЕ ЗАПИСИ");
 
-    puts("Добавить дополнительные поля? Нажмите любую кнопку для подтверждения.");
-    readAdditional();
-    printDefault("ВСЕ ЗАПИСИ");
-
-    return 0;
+    if (getchar() == 0) {
+        readAdditional();
+        printDefault("ВСЕ ЗАПИСИ");
+        return 0;
+    } else {
+        return 1;
+    }
 }

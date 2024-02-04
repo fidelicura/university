@@ -10,8 +10,8 @@
 #define BASE_INFO_SIZE 30
 #define ADDITIONAL_INFO_SIZE 5
 
-static const char* BASE_INFO_FILE_NAME = "base.data";
-static const char* ADDITIONAL_INFO_FILE_NAME = "additional.data";
+static const char* BASE_INFO_FILE_NAME = "data/base.data";
+static const char* ADDITIONAL_INFO_FILE_NAME = "data/additional.data";
 
 static FILE *base_info_fp = NULL;
 static FILE *additional_info_fp = NULL;
@@ -44,32 +44,35 @@ static void closeAdditional(void) {
     }
 }
 
-static flight serializeFormattedLine(char* line) {
-    // TODO: line serialization to `flight` struct
+static flight serializeFormattedLine(const char* data) {
+    char line[256];
+    strncpy(line, data, sizeof(line));
+    line[sizeof(line) - 1] = '\0';
+
     char* parsed = strtok(line, " ");
     int id = atoi(parsed);
 
-    parsed = strtok(line, " ");
+    parsed = strtok(NULL, " ");
     const char* destination = parsed;
 
-    parsed = strtok(line, " ");
+    parsed = strtok(NULL, " ");
     double distance = atof(parsed);
 
-    parsed = strtok(line, " ");
+    parsed = strtok(NULL, " ");
     float adult = atoi(parsed);
-    parsed = strtok(line, ",");
+    parsed = strtok(NULL, ",");
     float child = atoi(parsed);
     flightCost cost = flightCostCreate(adult, child);
 
-    parsed = strtok(line, " ");
+    parsed = strtok(NULL, " ");
     int start_minutes = atoi(parsed);
-    parsed = strtok(line, ":");
+    parsed = strtok(NULL, ":");
     int start_hours = atoi(parsed);
     time start_time = timeCreate(start_hours, start_minutes);
 
-    parsed = strtok(line, "-");
+    parsed = strtok(NULL, "-");
     int end_minutes = atoi(parsed);
-    parsed = strtok(line, ":");
+    parsed = strtok(NULL, ":");
     int end_hours = atoi(parsed);
     time end_time = timeCreate(end_hours, end_minutes);
 
