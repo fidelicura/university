@@ -32,7 +32,7 @@ static void printDelimiter() {
 
 static void printLine(flight data) {
     printf(
-        "| %3i | %18s | %6.2f | %6i-%6i | %02i:%02i-%02i:%02i |\n",
+        "| %3i | %-18s | %6.2f | %6i-%6i | %02i:%02i-%02i:%02i |\n",
         data.id, data.destination, data.distance,
         data.cost.adult, data.cost.child,
         data.duration.start.hours, data.duration.start.minutes, 

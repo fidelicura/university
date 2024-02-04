@@ -44,12 +44,31 @@ static void closeAdditional(void) {
     }
 }
 
+// TODO: trim whitespace
+void trimWhitespace(char *s)
+{
+    int i = strlen(s) - 1;
+    
+    while (i >= 0)
+    {
+      if (s[i] == ' ' || s[i] == '\n' || s[i] == '\t') {
+          i--;
+      } else {
+          break;
+      }
+    }
+    
+    s[i + 1] = '\0';
+}
+
 static flight serializeFormattedLine(char* line) {
     char* parsed = strtok(line, " ");
     int id = atoi(parsed);
 
     parsed = strtok(NULL, " ");
     char* destination = strdup(parsed);
+    trimWhitespace(destination);
+    printf("(%lu): %s\n", strlen(destination), destination);
 
     parsed = strtok(NULL, " ");
     double distance = atof(parsed);
