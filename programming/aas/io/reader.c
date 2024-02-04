@@ -44,35 +44,40 @@ static void closeAdditional(void) {
     }
 }
 
-static flight serializeFormattedLine(const char* data) {
-    char line[256];
-    strncpy(line, data, sizeof(line));
-    line[sizeof(line) - 1] = '\0';
-
+static flight serializeFormattedLine(char* line) {
     char* parsed = strtok(line, " ");
+    printf("Token: %s\n", parsed);
     int id = atoi(parsed);
 
     parsed = strtok(NULL, " ");
+    printf("Token: %s\n", parsed);
     const char* destination = parsed;
 
     parsed = strtok(NULL, " ");
+    printf("Token: %s\n", parsed);
     double distance = atof(parsed);
 
-    parsed = strtok(NULL, " ");
-    float adult = atoi(parsed);
     parsed = strtok(NULL, ",");
+    printf("Token: %s\n", parsed);
+    float adult = atoi(parsed);
+    parsed = strtok(NULL, " ");
+    printf("Token: %s\n", parsed);
     float child = atoi(parsed);
     flightCost cost = flightCostCreate(adult, child);
 
-    parsed = strtok(NULL, " ");
-    int start_minutes = atoi(parsed);
     parsed = strtok(NULL, ":");
+    printf("Token: %s\n", parsed);
+    int start_minutes = atoi(parsed);
+    parsed = strtok(NULL, "-");
+    printf("Token: %s\n", parsed);
     int start_hours = atoi(parsed);
     time start_time = timeCreate(start_hours, start_minutes);
 
-    parsed = strtok(NULL, "-");
-    int end_minutes = atoi(parsed);
     parsed = strtok(NULL, ":");
+    printf("Token: %s\n", parsed);
+    int end_minutes = atoi(parsed);
+    parsed = strtok(NULL, "");
+    printf("Token: %s\n", parsed);
     int end_hours = atoi(parsed);
     time end_time = timeCreate(end_hours, end_minutes);
 
