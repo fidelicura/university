@@ -1,5 +1,8 @@
+#define  _GNU_SOURCE
+
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "writer.h"
 #include "../logic/flight.h"
 
@@ -31,11 +34,22 @@ static void printDelimiter() {
 }
 
 static void printLine(flight data) {
+    char spaces[21];
+    size_t len = 21 - strlen(data.destination) / 2;
+    // don't really work at combo of different byte chars in one string
+    // e.g. "Ивано-Франковск" due to '-' one byte and other Russian letters
+    // cost 2 bytes...
+    for (size_t i = 0; i < len; i++) {
+        spaces[i] = ' ';
+    }
+    spaces[len - 1] = '\0';
+
     printf(
-        "| %3i | %-18s | %6.2f | %6i-%6i | %02i:%02i-%02i:%02i |\n",
-        data.id, data.destination, data.distance,
+        "| %3i | %s%s | %6.2f | %-6i,%6i | %02i:%02i%c%02i:%02i |\n",
+        data.id, data.destination, spaces, data.distance,
         data.cost.adult, data.cost.child,
         data.duration.start.hours, data.duration.start.minutes, 
+        '-',
         data.duration.end.hours, data.duration.end.minutes 
     );
 }
