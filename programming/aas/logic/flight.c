@@ -52,6 +52,7 @@ flight flightCreate(
     #define FLIGHT_LIST_AMOUNT 50
 #endif
 static flight flightList[FLIGHT_LIST_AMOUNT] = {0};
+static flight flightListSorted[FLIGHT_LIST_AMOUNT] = {0};
 
 // 0 if inserted successfully;
 // 1 if some else (i.e. out of bounds)
@@ -91,56 +92,33 @@ int flightListLen() {
     return counter;
 }
 
-static void __flightListDescendingSort(const int low, const int high);
-static void __flightListAscendingSort(const int low, const int high);
-
-void flightListSort(const sortType type, const int high) {
-    if (type == Descending) {
-        __flightListDescendingSort(0, high);
-    } else {
-        __flightListAscendingSort(0, high);
-    }
+// TODO: handle situations where you
+// may access out of bounds or negative indices
+flight flightListSortedGet(int idx) {
+    return flightListSorted[idx];
 }
 
-static int __quickSortPartition(const int low, const int high);
-
-// in-place quicksort
-static void __flightListDescendingSort(const int low, const int high) {
-    if (low < high) {
-        int idx = __quickSortPartition(low, high);
-        __flightListDescendingSort(low, idx - 1);
-        __flightListDescendingSort(idx + 1, high);
-    }
+static void swap(int i, int j) 
+{ 
+    flight temp = flightListSorted[i]; 
+    flightListSorted[i] = flightListSorted[j]; 
+    flightListSorted[j] = temp; 
 }
+  
+static void bubbleSort()
+{
+    int len = flightListLen();
 
-// in-place quicksort
-static void __flightListAscendingSort(const int low, const int high) {
-    if (low < high) {
-        int idx = __quickSortPartition(low, high);
-        __flightListAscendingSort(low, idx - 1);
-        __flightListAscendingSort(idx + 1, high);
+    int i, j;
+    for (i = 0; i < len - 1; i++) 
+        for (j = 0; j < len - i - 1; j++) 
+            if (flightListSorted[j].id > flightListSorted[j + 1].id) 
+                swap(j, j + 1); 
+} 
+
+void flightListSort() {
+    for (size_t i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
+        flightListSorted[i] = flightList[i];
     }
-}
-
-// quicksort partitioner
-static int __quickSortPartition(const int low, const int high) {
-    flight temp;
-
-    int i = low;
-    int last = high;
-    flight pivot = flightList[last];
-
-    for (int j = low; j < high; j++) {
-        if (flightList[j].distance <= pivot.distance) {
-            temp = flightList[i];
-            flightList[i] = flightList[j];
-            flightList[j] = temp;
-        }
-    }
-
-    temp = flightList[i];
-    flightList[i] = flightList[high];
-    flightList[high] = temp;
-
-    return i;
+    bubbleSort();
 }

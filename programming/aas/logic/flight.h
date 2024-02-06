@@ -39,9 +39,5 @@ int flightListInsert(int idx, flight elem);
 flight flightListGet(int idx);
 int flightListLen();
 
-typedef enum {
-    Descending,
-    Ascending,
-} sortType;
-
-void flightListSort(const sortType type, const int high);
+flight flightListSortedGet(int idx);
+void flightListSort();
