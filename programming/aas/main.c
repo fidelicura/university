@@ -12,6 +12,7 @@ static void printInfo() {
     printf("2 - догрузить дополнительную таблицу;\n");
     printf("3 - показать таблицу с сортировкой по ID;\n");
     printf("4 - показать таблицу по указанным городам;\n");
+    printf("5 - показать таблицу самых дальних трех полетов;\n");
     printf("0 - выход из программы;\n");
 }
 
@@ -84,11 +85,18 @@ int main(void)
             scanf("%s", user_input);
             printf("Вы ввели: \"%s\"\n", user_input);
             printDefined(TABLE_HEADER_NAME, user_input);
+        } else if (input == 5) {
+            if (!base_state) {
+                readBase();
+                base_state = true;
+            }
+
+            printMaxDuration(TABLE_HEADER_NAME);
         }
 
         if (input == 0) break;
         
-        if (input < 0 || input > 4) continue;
+        if (input < 0 || input > 5) continue;
     } while (1);
 
     return 0;

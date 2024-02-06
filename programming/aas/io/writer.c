@@ -61,11 +61,11 @@ void printDefault(const char* header) {
 }
 
 void printSorted(const char* header) {
-    flightListSort();
+    flightListSortById();
     printHeader(header);
     printDelimiter();
     for (int i = 0; i < flightListLen(); i++) {
-        flight line = flightListSortedGet(i);
+        flight line = flightListSortedByIdGet(i);
         printLine(line);
     }
     printDelimiter();
@@ -99,5 +99,12 @@ void printDefined(const char* header, const char* defined_destination) {
 }
 
 void printMaxDuration(const char* header) {
+    flightListSortByMax();
     printHeader(header);
+    printDelimiter();
+    for (int i = 0; i < 3; i++) {
+        flight line = flightListSortedByMaxGet(i);
+        printLine(line);
+    }
+    printDelimiter();
 }

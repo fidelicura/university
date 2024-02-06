@@ -39,5 +39,8 @@ int flightListInsert(int idx, flight elem);
 flight flightListGet(int idx);
 int flightListLen();
 
-flight flightListSortedGet(int idx);
-void flightListSort();
+flight flightListSortedByIdGet(int idx);
+void flightListSortById();
+
+flight flightListSortedByMaxGet(int idx);
+void flightListSortByMax();

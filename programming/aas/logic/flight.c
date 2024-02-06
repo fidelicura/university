@@ -52,7 +52,8 @@ flight flightCreate(
     #define FLIGHT_LIST_AMOUNT 50
 #endif
 static flight flightList[FLIGHT_LIST_AMOUNT] = {0};
-static flight flightListSorted[FLIGHT_LIST_AMOUNT] = {0};
+static flight flightListSortedById[FLIGHT_LIST_AMOUNT] = {0};
+static flight flightListSortedByMax[FLIGHT_LIST_AMOUNT] = {0};
 
 // 0 if inserted successfully;
 // 1 if some else (i.e. out of bounds)
@@ -94,31 +95,60 @@ int flightListLen() {
 
 // TODO: handle situations where you
 // may access out of bounds or negative indices
-flight flightListSortedGet(int idx) {
-    return flightListSorted[idx];
+flight flightListSortedByIdGet(int idx) {
+    return flightListSortedById[idx];
 }
 
-static void swap(int i, int j) 
+static void swapById(int i, int j) 
 { 
-    flight temp = flightListSorted[i]; 
-    flightListSorted[i] = flightListSorted[j]; 
-    flightListSorted[j] = temp; 
+    flight temp = flightListSortedById[i]; 
+    flightListSortedById[i] = flightListSortedById[j]; 
+    flightListSortedById[j] = temp; 
 }
   
-static void bubbleSort()
+static void bubbleSortById()
 {
     int len = flightListLen();
 
     int i, j;
     for (i = 0; i < len - 1; i++) 
         for (j = 0; j < len - i - 1; j++) 
-            if (flightListSorted[j].id > flightListSorted[j + 1].id) 
-                swap(j, j + 1); 
+            if (flightListSortedById[j].id > flightListSortedById[j + 1].id) 
+                swapById(j, j + 1);
 } 
 
-void flightListSort() {
+static void swapByMax(int i, int j) 
+{ 
+    flight temp = flightListSortedByMax[i]; 
+    flightListSortedByMax[i] = flightListSortedByMax[j]; 
+    flightListSortedByMax[j] = temp; 
+}
+
+static void bubbleSortByMax()
+{
+    int len = flightListLen();
+
+    int i, j;
+    for (i = 0; i < len - 1; i++) 
+        for (j = 0; j < len - i - 1; j++) 
+            if (flightListSortedByMax[j].distance < flightListSortedByMax[j + 1].distance) 
+                swapByMax(j, j + 1); 
+} 
+
+void flightListSortById() {
     for (size_t i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
-        flightListSorted[i] = flightList[i];
+        flightListSortedById[i] = flightList[i];
     }
-    bubbleSort();
+    bubbleSortById();
+}
+
+flight flightListSortedByMaxGet(int idx) {
+    return flightListSortedByMax[idx];
+}
+
+void flightListSortByMax() {
+    for (size_t i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
+        flightListSortedByMax[i] = flightList[i];
+    }
+    bubbleSortByMax();
 }
