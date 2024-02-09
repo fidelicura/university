@@ -64,7 +64,7 @@ void sortBetweenMin(int *arr, int first_pos, int last_pos) {
     }
 }
 
-int main() {
+int main(void) {
     FILE *file = fopen(FILE_NAME, "r");
     if (!file) {
         printf("Ошибка! Невозможно открыть указанный файл.");
