@@ -13,6 +13,7 @@ static void printInfo() {
     printf("3 - показать таблицу с сортировкой по ID;\n");
     printf("4 - показать таблицу по указанному городу;\n");
     printf("5 - показать таблицу самых дальних трех полетов;\n");
+    printf("6 - выгрузить таблицу как архивный файл\n");
     printf("0 - выход из программы;\n");
 }
 
@@ -92,11 +93,18 @@ int main(void)
             }
 
             printMaxDuration(TABLE_HEADER_NAME);
+        } else if (input == 6) {
+            if (!base_state) {
+                readBase();
+                base_state = true;
+            }
+
+            uploadDefault();
         }
 
         if (input == 0) break;
         
-        if (input < 0 || input > 5) continue;
+        if (input < 0 || input > 6) continue;
     } while (1);
 
     return 0;

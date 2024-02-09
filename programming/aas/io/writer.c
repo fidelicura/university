@@ -50,6 +50,32 @@ static void printLine(flight data) {
     );
 }
 
+// of diffbyte chars in single string
+static void outputLine(flight data, FILE* fp) {
+    char destination_spaces[21];
+    size_t dest_len = 21 - strlen(data.destination) / 2;
+    // don't really work at combo of different byte chars in one string
+    // e.g. "Ивано-Франковск" due to '-' one byte and other Russian letters
+    // cost 2 bytes...
+    for (size_t i = 0; i < dest_len; i++) {
+        destination_spaces[i] = ' ';
+    }
+    destination_spaces[dest_len - 1] = '\0';
+
+    char line[512];
+    sprintf(
+        line,
+        "| %3i | %s%s | %8.2f | %-6i,%6i | %02i:%02i%c%02i:%02i |\n",
+        data.id, data.destination, destination_spaces, data.distance,
+        data.cost.adult, data.cost.child,
+        data.duration.start.hours, data.duration.start.minutes, 
+        '-',
+        data.duration.end.hours, data.duration.end.minutes 
+    );
+
+    fputs(line, fp);
+}
+
 void printDefault(const char* header) {
     printHeader(header);
     printDelimiter();
@@ -107,4 +133,19 @@ void printMaxDuration(const char* header) {
         printLine(line);
     }
     printDelimiter();
+}
+
+void uploadDefault() {
+    FILE* fp = fopen("result.data", "w+");
+    if (fp == NULL) {
+        printf("Ошибка открытия/создания файла-архива!");
+    }
+
+    for (int i = 0; i < flightListLen(); i++) {
+        flight line = flightListGet(i);
+        outputLine(line, fp);
+    }
+
+    fclose(fp);
+    printf("Данные записаны в файл.\n");
 }
