@@ -7,7 +7,7 @@
 
 static char* TABLE_HEADER_NAME = "ТЕКУЩАЯ ТАБЛИЦА";
 
-static void printInfo() {
+static void printInfo(void) {
     printf("1 - показать текущую таблицу;\n");
     printf("2 - догрузить дополнительную таблицу;\n");
     printf("3 - показать таблицу с сортировкой по ID;\n");

@@ -2,7 +2,8 @@
 #include "flight.h"
 
 // TODO: check for price lower than zero
-flightCost flightCostCreate(const int adult, const int child) {
+flightCost flightCostCreate(const int adult, const int child)
+{
     flightCost result = {
         .adult = adult,
         .child = child,
@@ -75,11 +76,13 @@ int flightListInsert(int idx, flight elem) {
 
 // TODO: handle situations where you
 // may access out of bounds or negative indices
-flight flightListGet(int idx) {
+flight flightListGet(int idx)
+{
     return flightList[idx];
 }
 
-int flightListLen() {
+int flightListLen(void)
+{
     int counter = 0;
 
     for (int i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
@@ -95,7 +98,8 @@ int flightListLen() {
 
 // TODO: handle situations where you
 // may access out of bounds or negative indices
-flight flightListSortedByIdGet(int idx) {
+flight flightListSortedByIdGet(int idx)
+{
     return flightListSortedById[idx];
 }
 
@@ -106,7 +110,7 @@ static void swapById(int i, int j)
     flightListSortedById[j] = temp; 
 }
   
-static void bubbleSortById()
+static void bubbleSortById(void)
 {
     int len = flightListLen();
 
@@ -124,7 +128,7 @@ static void swapByMax(int i, int j)
     flightListSortedByMax[j] = temp; 
 }
 
-static void bubbleSortByMax()
+static void bubbleSortByMax(void)
 {
     int len = flightListLen();
 
@@ -135,18 +139,21 @@ static void bubbleSortByMax()
                 swapByMax(j, j + 1); 
 } 
 
-void flightListSortById() {
+void flightListSortById(void)
+{
     for (size_t i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
         flightListSortedById[i] = flightList[i];
     }
     bubbleSortById();
 }
 
-flight flightListSortedByMaxGet(int idx) {
+flight flightListSortedByMaxGet(int idx)
+{
     return flightListSortedByMax[idx];
 }
 
-void flightListSortByMax() {
+void flightListSortByMax(void)
+{
     for (size_t i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
         flightListSortedByMax[i] = flightList[i];
     }

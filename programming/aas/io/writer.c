@@ -9,9 +9,10 @@
 
 #define TABLE_MAX_WIDTH 71
 
-static void printDelimiter();
+static void printDelimiter(void);
 
-static void printHeader(const char* header) {
+static void printHeader(const char* header)
+{
     printDelimiter();
 
     printf("|");
@@ -22,14 +23,16 @@ static void printHeader(const char* header) {
     printf("\n");
 }
 
-static void printDelimiter() {
+static void printDelimiter(void)
+{
     for (int i = 0; i < TABLE_MAX_WIDTH; i++)
         putc('-', stdout);
     putc('\n', stdout);
 }
 
 // of diffbyte chars in single string
-static void printLine(flight data) {
+static void printLine(flight data)
+{
     char destination_spaces[21];
     size_t dest_len = 21 - strlen(data.destination) / 2;
     // don't really work at combo of different byte chars in one string
@@ -51,7 +54,8 @@ static void printLine(flight data) {
 }
 
 // of diffbyte chars in single string
-static void outputLine(flight data, FILE* fp) {
+static void outputLine(flight data, FILE* fp)
+{
     char destination_spaces[21];
     size_t dest_len = 21 - strlen(data.destination) / 2;
     // don't really work at combo of different byte chars in one string
@@ -76,7 +80,8 @@ static void outputLine(flight data, FILE* fp) {
     fputs(line, fp);
 }
 
-void printDefault(const char* header) {
+void printDefault(const char* header)
+{
     printHeader(header);
     printDelimiter();
     for (int i = 0; i < flightListLen(); i++) {
@@ -86,7 +91,8 @@ void printDefault(const char* header) {
     printDelimiter();
 }
 
-void printSorted(const char* header) {
+void printSorted(const char* header)
+{
     flightListSortById();
     printHeader(header);
     printDelimiter();
@@ -97,7 +103,8 @@ void printSorted(const char* header) {
     printDelimiter();
 }
 
-void printDefined(const char* header, const char* defined_destination) {
+void printDefined(const char* header, const char* defined_destination)
+{
     int buf[FLIGHT_LIST_AMOUNT];
     int j = 0;
     bool state = false;
@@ -124,7 +131,8 @@ void printDefined(const char* header, const char* defined_destination) {
     }
 }
 
-void printMaxDuration(const char* header) {
+void printMaxDuration(const char* header)
+{
     flightListSortByMax();
     printHeader(header);
     printDelimiter();
@@ -135,7 +143,8 @@ void printMaxDuration(const char* header) {
     printDelimiter();
 }
 
-void uploadDefault() {
+void uploadDefault(void)
+{
     FILE* fp = fopen("result.data", "w+");
     if (fp == NULL) {
         printf("Ошибка открытия/создания файла-архива!");

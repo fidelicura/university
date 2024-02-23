@@ -37,10 +37,10 @@ flight flightCreate(
 #define FLIGHT_LIST_AMOUNT 50
 int flightListInsert(int idx, flight elem);
 flight flightListGet(int idx);
-int flightListLen();
+int flightListLen(void);
 
 flight flightListSortedByIdGet(int idx);
-void flightListSortById();
+void flightListSortById(void);
 
 flight flightListSortedByMaxGet(int idx);
-void flightListSortByMax();
+void flightListSortByMax(void);

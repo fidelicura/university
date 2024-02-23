@@ -5,7 +5,7 @@ aas: main.o flight.o writer.o reader.o
 	rm main.o flight.o writer.o reader.o
 
 debug: main.o flight.o writer.o reader.o
-	$(CC) $(CFLAGS) -O0 main.o flight.o writer.o reader.o -o aas-debug -g 
+	$(CC) $(CFLAGS) -Og -g3 -ggdb main.o flight.o writer.o reader.o -o aas-debug 
 	rm main.o flight.o writer.o reader.o
 
 flight.o:
