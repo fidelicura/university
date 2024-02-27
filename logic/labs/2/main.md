@@ -1,5 +1,3 @@
-
-
 # Условие
 
 Дано: представление номера зачетной книжки в двоичном формате (`10101010100100.0010100`), булева функция `first = f(A, B, C)` и булева функция `second = f(A, B, C, D)`.
@@ -48,11 +46,11 @@
 ### №2
 >Для сокращения записи в СКНФ, я заменил "$\lor$" слиянием (просто не писал знак).
 
-СДНФ, согласно таблице:
+**СДНФ**, согласно таблице:
 - $first = \overline{ABC} \lor \overline{A}B\overline{C} \lor A\overline{B}C$;
 - $second = \overline{ABCD} \lor \overline{AB}C\overline{D} \lor A\overline{B}C\overline{D} \lor A\overline{BCD} \lor AB\overline{C}D$ (+ избавились от _повторяемых слагаемых_: $A\overline{B}C\overline{D}$);
 
-СКНФ, согласно таблице:
+**СКНФ**, согласно таблице:
 - $first = AB\overline{C} \land A\overline{BC} \land \overline{A}BC \land \overline{AB}C \land \overline{ABC}$;
 - $second = ABC\overline{D} \land AB\overline{CD} \land A\overline{B}CD \land A\overline{BC}D \land A\overline{BCD} \land \overline{A}BC\overline{D} \land \overline{A}B\overline{CD} \land \overline{AB}CD \land \overline{ABC}D \land \overline{ABCD}$ (+ избавились от _повторяемых слагаемых_: не было);
 
@@ -76,3 +74,9 @@
 | $0$ | $1$ | $0$ | $0$ | $0$ | $0$ |
 | $1$ | $1$ | $1$ | $1$ | $0$ | $0$ |
 | $1$ | $0$ | $0$ | $0$ | $0$ | $0$ |
+
+>Для сокращения записи в МКНФ, я заменил "$\lor$" слиянием (просто не писал знак).
+
+Находим дизъюнктивные и конъюнктивные **группы**:
+- **МДНФ** - $first = \overline{AC} \lor A\overline{B}C$, $second = BD\overline{C} \lor \overline{BD}$;
+- **МКНФ** - $first = \overline{A}C \land \overline{B} \land A\overline{C}$, $second = \overline{B}D \land \overline{BCD} \land B\overline{D}$;
