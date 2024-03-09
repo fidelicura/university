@@ -3,9 +3,6 @@
 #include <stdbool.h>
 #include "io/writer.h"
 #include "io/reader.h"
-#include "logic/flight.h"
-
-static char* TABLE_HEADER_NAME = "ТЕКУЩАЯ ТАБЛИЦА";
 
 static void printInfo(void) {
     printf("1 - показать текущую таблицу;\n");
@@ -36,9 +33,9 @@ int main(void)
             if (!base_state) {
                 readBase();
                 base_state = true;
-                printDefault(TABLE_HEADER_NAME);
+                printDefault();
             } else {
-                printDefault(TABLE_HEADER_NAME);
+                printDefault();
             }
         }
         else if (input == 2) {
@@ -48,15 +45,15 @@ int main(void)
                     readAdditional();
                     base_state = true;
                     additional_state = true;
-                    printDefault(TABLE_HEADER_NAME);
+                    printDefault();
                 } else {
                     readAdditional();
-                    printDefault(TABLE_HEADER_NAME);
+                    printDefault();
                     additional_state = true;
                 }
             } else {
                 additional_state = true;
-                printDefault(TABLE_HEADER_NAME);
+                printDefault();
             }
         } else if (input == 3) {
             if (!additional_state) {
@@ -65,15 +62,15 @@ int main(void)
                     readAdditional();
                     base_state = true;
                     additional_state = true;
-                    printSorted(TABLE_HEADER_NAME);
+                    printSorted();
                 } else {
                     readAdditional();
                     additional_state = true;
-                    printSorted(TABLE_HEADER_NAME);
+                    printSorted();
                 }
             } else {
                 additional_state = true;
-                printSorted(TABLE_HEADER_NAME);
+                printSorted();
             }
         } else if (input == 4) {
             if (!base_state) {
@@ -85,14 +82,14 @@ int main(void)
             printf("Введите город назначения: ");
             scanf("%s", user_input);
             printf("Вы ввели: \"%s\"\n", user_input);
-            printDefined(TABLE_HEADER_NAME, user_input);
+            printDefined(user_input);
         } else if (input == 5) {
             if (!base_state) {
                 readBase();
                 base_state = true;
             }
 
-            printMaxDuration(TABLE_HEADER_NAME);
+            printMaxDuration();
         } else if (input == 6) {
             if (!base_state) {
                 readBase();

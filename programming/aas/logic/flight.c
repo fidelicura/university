@@ -30,7 +30,7 @@ flightDuration flightDurationCreate(const time start, const time end) {
     return result;
 }
 
-// TODO:
+// TODO (possible):
 // - check for distance and duration lower than zero
 // - check for id lower or equal zero 
 flight flightCreate(
@@ -48,7 +48,6 @@ flight flightCreate(
     return result;
 }
 
-// made for reading convinience
 #ifndef FLIGHT_LIST_AMOUNT
     #define FLIGHT_LIST_AMOUNT 50
 #endif
@@ -59,7 +58,7 @@ static flight flightListSortedByMax[FLIGHT_LIST_AMOUNT] = {0};
 // 0 if inserted successfully;
 // 1 if some else (i.e. out of bounds)
 int flightListInsert(int idx, flight elem) {
-    if (idx >= 50 || idx < 0) {
+    if (idx >= FLIGHT_LIST_AMOUNT || idx < 0) {
         return 1;
     } else {
         // check if previous element by index - 1 is present
@@ -69,6 +68,12 @@ int flightListInsert(int idx, flight elem) {
                 return 1;
             }
         }
+
+        for (int i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
+            if (flightList[i].id == elem.id)
+                return 1;
+        }
+
         flightList[idx] = elem;
         return 0;
     }
@@ -96,10 +101,11 @@ int flightListLen(void)
     return counter;
 }
 
-// TODO: handle situations where you
-// may access out of bounds or negative indices
 flight flightListSortedByIdGet(int idx)
 {
+    if (idx > FLIGHT_LIST_AMOUNT || idx < 0)
+        exit(EXIT_FAILURE);
+
     return flightListSortedById[idx];
 }
 

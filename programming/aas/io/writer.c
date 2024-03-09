@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 #include <stdbool.h>
 #include "writer.h"
 #include "../logic/flight.h"
@@ -11,14 +10,18 @@
 
 static void printDelimiter(void);
 
-static void printHeader(const char* header)
+static void printHeader(void)
 {
     printDelimiter();
 
     printf("|");
     printf(" ");
-    printf("%-*s", TABLE_MAX_WIDTH + 10, header);
-    printf(" ");
+    // printf("%-*s", TABLE_MAX_WIDTH + 10, header);
+    printf(" №  |");
+    printf(" %-24s  |", "Город");
+    printf(" %-11s  |", "Путь");
+    printf(" %-16s  |", "Цена");
+    printf(" %-15s  ", "Время");
     printf("|");
     printf("\n");
 }
@@ -80,9 +83,9 @@ static void outputLine(flight data, FILE* fp)
     fputs(line, fp);
 }
 
-void printDefault(const char* header)
+void printDefault(void)
 {
-    printHeader(header);
+    printHeader();
     printDelimiter();
     for (int i = 0; i < flightListLen(); i++) {
         flight line = flightListGet(i);
@@ -91,10 +94,10 @@ void printDefault(const char* header)
     printDelimiter();
 }
 
-void printSorted(const char* header)
+void printSorted(void)
 {
     flightListSortById();
-    printHeader(header);
+    printHeader();
     printDelimiter();
     for (int i = 0; i < flightListLen(); i++) {
         flight line = flightListSortedByIdGet(i);
@@ -103,7 +106,7 @@ void printSorted(const char* header)
     printDelimiter();
 }
 
-void printDefined(const char* header, const char* defined_destination)
+void printDefined(const char* defined_destination)
 {
     int buf[FLIGHT_LIST_AMOUNT];
     int j = 0;
@@ -121,7 +124,7 @@ void printDefined(const char* header, const char* defined_destination)
     if (state == false) {
         printf("Нет подходящих записей!\n");
     } else {
-        printHeader(header);
+        printHeader();
         printDelimiter();
         for (int i = 0; i < j; i++) {
             flight line = flightListGet(buf[i]);
@@ -131,10 +134,10 @@ void printDefined(const char* header, const char* defined_destination)
     }
 }
 
-void printMaxDuration(const char* header)
+void printMaxDuration(void)
 {
     flightListSortByMax();
-    printHeader(header);
+    printHeader();
     printDelimiter();
     for (int i = 0; i < 3; i++) {
         flight line = flightListSortedByMaxGet(i);

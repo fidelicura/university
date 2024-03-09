@@ -109,8 +109,10 @@ static flight parseLineAdditional(void) {
     ssize_t read;
     flight result;
 
-    if (fp == NULL)
+    if (fp == NULL) {
         printf("Ошибка чтения дополнительного файла при парсинге!");
+        exit(EXIT_FAILURE);
+    }
 
     if ((read = getline(&line, &len, base_info_fp)) != -1) {
         result = serializeFormattedLine(line);
@@ -118,7 +120,7 @@ static flight parseLineAdditional(void) {
             free(line);
     } else {
         printf("Ошибка при парсинге дополнительного файла!");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     return result;
@@ -128,6 +130,9 @@ int readBase(void) {
     openBase();
     for (int i = 0; i < BASE_INFO_SIZE; i++) {
         flight result = parseLineBase();
+        // it's okay to produce error of flight list insertion
+        // but I'll remain mention about to this
+        // if needed to handle this situation in future...
         flightListInsert(i, result);
     }
     closeBase();

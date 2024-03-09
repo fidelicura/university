@@ -82,3 +82,6 @@ dkms.conf
 
 aas-release
 aas-debug
+
+# own
+result.data
