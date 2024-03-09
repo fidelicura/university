@@ -8,7 +8,7 @@
 #include "../logic/flight.h"
 
 #define BASE_INFO_SIZE 30
-#define ADDITIONAL_INFO_SIZE 5
+#define ADDITIONAL_INFO_SIZE 34
 
 static const char* BASE_INFO_FILE_NAME = "data/base.data";
 static const char* ADDITIONAL_INFO_FILE_NAME = "data/additional.data";
@@ -47,6 +47,10 @@ static void closeAdditional(void) {
 static flight serializeFormattedLine(char* line) {
     char* parsed = strtok(line, " ");
     int id = atoi(parsed);
+    if (id == 0) {
+        printf("ID CANNOT BE ZERO");
+        exit(EXIT_FAILURE);
+    }
 
     parsed = strtok(NULL, " ");
     char* destination = strdup(parsed);
@@ -130,10 +134,11 @@ int readBase(void) {
     openBase();
     for (int i = 0; i < BASE_INFO_SIZE; i++) {
         flight result = parseLineBase();
-        // it's okay to produce error of flight list insertion
-        // but I'll remain mention about to this
-        // if needed to handle this situation in future...
-        flightListInsert(i, result);
+        if (flightListInsert(i, result) != 0) {
+            printf("BASE FLIGHT LIST INSERTION FAILED, CONTINUE...\n");
+            i--;
+            continue;
+        }
     }
     closeBase();
 
@@ -142,9 +147,12 @@ int readBase(void) {
 
 int readAdditional(void) {
     openAdditional();
-    for (int i = 0; i < ADDITIONAL_INFO_SIZE; i++) {
+    for (int i = 29; i < ADDITIONAL_INFO_SIZE; i++) {
         flight result = parseLineAdditional();
-        flightListInsert(i, result);
+        if (flightListInsert(i, result) != 0) {
+            printf("ADDITIONAL FLIGHT LIST INSERTION FAILED, CONTINUE...\n");
+            continue;
+        }
     }
     closeAdditional();
 

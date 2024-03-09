@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "flight.h"
 
@@ -57,23 +58,12 @@ static flight flightListSortedByMax[FLIGHT_LIST_AMOUNT] = {0};
 
 // 0 if inserted successfully;
 // 1 if some else (i.e. out of bounds)
-int flightListInsert(int idx, flight elem) {
+int flightListInsert(int idx, flight elem)
+{
     if (idx >= FLIGHT_LIST_AMOUNT || idx < 0) {
+        printf("IDX IS NOT FINE!");
         return 1;
     } else {
-        // check if previous element by index - 1 is present
-        // to save array coherence
-        if (idx != 0) {
-            if (flightList[idx - 1].id == 0) {
-                return 1;
-            }
-        }
-
-        for (int i = 0; i < FLIGHT_LIST_AMOUNT; i++) {
-            if (flightList[i].id == elem.id)
-                return 1;
-        }
-
         flightList[idx] = elem;
         return 0;
     }
@@ -83,6 +73,11 @@ int flightListInsert(int idx, flight elem) {
 // may access out of bounds or negative indices
 flight flightListGet(int idx)
 {
+    if (idx >= FLIGHT_LIST_AMOUNT || idx < 0) {
+        printf("PANIC! out of bounds");
+        exit(EXIT_FAILURE);
+    }
+    
     return flightList[idx];
 }
 
