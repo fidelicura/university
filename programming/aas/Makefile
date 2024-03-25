@@ -5,7 +5,8 @@ aas: main.o flight.o writer.o reader.o codificator.o
 	rm main.o flight.o writer.o reader.o codificator.o
 
 debug: main.o flight.o writer.o reader.o codificator.o
-	$(CC) $(CFLAGS) -O0 -g3 -ggdb main.o flight.o writer.o reader.o codificator.o -o aas-debug 
+	$(CC) $(CFLAGS) -O0 -g -ggdb main.o flight.o writer.o reader.o codificator.o -o aas-debug 
+	rm main.o flight.o writer.o reader.o codificator.o
 
 flight.o:
 	$(CC) $(CFLAGS) -c logic/flight.c

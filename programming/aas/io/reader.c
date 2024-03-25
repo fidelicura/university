@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include <sys/types.h>
 #include "../logic/flight.h"
@@ -64,7 +65,7 @@ static void closeCodificator(void)
     if (codificator_info_fp == NULL) {
         printf("Файл с кодификатором либо не был открыт, либо уже закрыт!");
     } else {
-        fclose(additional_info_fp);
+        fclose(codificator_info_fp);
     }
 }
 
@@ -108,6 +109,24 @@ static flight serializeFormattedLine(char* line)
     return result;
 }
 
+char *trimWhitespace(char *str)
+{
+    char *end;
+
+    while(isspace((unsigned char)*str)) str++;
+
+    if(*str == 0)
+        return str;
+
+    end = str + strlen(str) - 1;
+    while (end > str && isspace((unsigned char)*end))
+        end--;
+
+    end[1] = '\0';
+
+    return str;
+}
+
 static codificator serializeFormattedCodificatorLine(char* line)
 {
     char* parsed = strtok(line, " ");
@@ -115,6 +134,7 @@ static codificator serializeFormattedCodificatorLine(char* line)
 
     parsed = strtok(NULL, " ");
     char* destination = strdup(parsed);
+    destination = trimWhitespace(destination);
 
     codificator result = { .id = id, .destination = destination };
     return result;
@@ -132,7 +152,7 @@ static flight parseLineBase(void)
     if (fp == NULL)
         printf("Ошибка чтения базового файла при парсинге!");
 
-    if ((read = getline(&line, &len, base_info_fp)) != -1) {
+    if ((read = getline(&line, &len, fp)) != -1) {
         result = serializeFormattedLine(line);
         if (line)
             free(line);
@@ -158,7 +178,7 @@ static flight parseLineAdditional(void)
         exit(EXIT_FAILURE);
     }
 
-    if ((read = getline(&line, &len, base_info_fp)) != -1) {
+    if ((read = getline(&line, &len, fp)) != -1) {
         result = serializeFormattedLine(line);
         if (line)
             free(line);
@@ -179,16 +199,16 @@ static codificator parseLineCodificator(void)
     codificator result;
 
     if (fp == NULL) {
-        printf("Ошибка чтения дополнительного файла при парсинге!");
+        printf("Ошибка чтения кодификатора при парсинге!");
         exit(EXIT_FAILURE);
     }
 
-    if ((read = getline(&line, &len, base_info_fp)) != -1) {
+    if ((read = getline(&line, &len, fp)) != -1) {
         result = serializeFormattedCodificatorLine(line);
         if (line)
             free(line);
     } else {
-        printf("Ошибка при парсинге дополнительного файла!");
+        printf("Ошибка при парсинге кодификатора!");
         exit(EXIT_FAILURE);
     }
 
