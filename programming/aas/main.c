@@ -18,6 +18,7 @@ int main(void)
 {
     bool base_state = false;
     bool additional_state = false;
+    readCodificator();
 
     system("clear");
     do {
