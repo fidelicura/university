@@ -13,7 +13,8 @@ flightCost flightCostCreate(const int adult, const int child)
     return result;
 }
 
-time timeCreate(const int hours, const int minutes) {
+time timeCreate(const int hours, const int minutes)
+{
     time result = {
         .hours = hours,
         .minutes = minutes,
@@ -159,4 +160,29 @@ void flightListSortByMax(void)
         flightListSortedByMax[i] = flightList[i];
     }
     bubbleSortByMax();
+}
+
+void flightChangeId(flight* obj, int value)
+{
+    obj->id = value;
+}
+
+void flightChangeDestination(flight* obj, const char* value)
+{
+    obj->destination = value;
+}
+
+void flightChangeDistance(flight* obj, double value)
+{
+    obj->distance = value;
+}
+
+void flightChangeCost(flight* obj, flightCost value)
+{
+    obj->cost = value;
+}
+
+void flightChangeDuration(flight* obj, flightDuration value)
+{
+    obj->duration = value;
 }
