@@ -141,6 +141,17 @@ static void bubbleSortByMax(void)
                 swapByMax(j, j + 1); 
 } 
 
+flight* flightListFind(int id)
+{
+    for (int i = 0; i < flightListLen(); i++) {
+        if (flightList[i].id == id) {
+            return &flightList[i];
+        }
+    }
+
+    return NULL;
+}
+
 void flightListSortById(void)
 {
     for (size_t i = 0; i < FLIGHT_LIST_AMOUNT; i++) {

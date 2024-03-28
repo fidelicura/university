@@ -44,6 +44,7 @@ void flightListSortById(void);
 
 flight flightListSortedByMaxGet(int idx);
 void flightListSortByMax(void);
+flight* flightListFind(int id);
 
 void flightChangeId(flight* obj, int value);
 void flightChangeDestination(flight* obj, const char* value);

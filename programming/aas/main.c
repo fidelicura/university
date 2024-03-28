@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "io/writer.h"
 #include "io/reader.h"
+#include "logic/flight.h"
 
 static void printInfo(void) {
     printf("1 - показать текущую таблицу;\n");
@@ -117,34 +118,65 @@ int main(void)
 
             if (input == 1) {
                 int input;
+                int id;
                 system("clear");
                 printf("Вы выбрали изменить идентификатор.\n");
-                printf("Ввод: ");
+                printf("Введите ID изменяемого поля: ");
                 scanf("%i", &input);
+                printf("\nВведите новое ID: ");
+                scanf("%i", &id);
+                flightChangeId(flightListFind(input), id);
+                printf("\nПоле изменено!\n");
             } else if (input == 2) {
-                char* input;
+                int input;
+                char* city = "";
                 system("clear");
                 printf("Вы выбрали изменить город направления.\n");
-                printf("Ввод: ");
-                scanf("%s", input);
+                printf("Введите ID изменяемого поля: ");
+                scanf("%i", &input);
+                printf("\nВведите новый город: ");
+                scanf("%s", city);
+                flightChangeDestination(flightListFind(input), city);
+                printf("\nПоле изменено!\n");
             } else if (input == 3) {
-                double input;
+                int input;
+                double dist;
                 system("clear");
                 printf("Вы выбрали изменить расстояние.\n");
-                printf("Ввод: ");
-                scanf("%lf", &input);
+                printf("Введите ID изменяемого поля: ");
+                scanf("%i", &input);
+                printf("\nВведите новое расстояние: ");
+                scanf("%lf", &dist);
+                flightChangeDistance(flightListFind(input), dist);
+                printf("\nПоле изменено!\n");
             } else if (input == 4) {
-                int first, second;
+                int input, first, second;
                 system("clear");
                 printf("Вы выбрали изменить цену.\n");
-                printf("Ввод в формате \"40150 , 35730\": ");
+                printf("Введите ID изменяемого поля: ");
+                scanf("%i", &input);
+                printf("\nВведите цену в формате \"62000,63000\": ");
                 scanf("%i , %i", &first, &second);
+                flightChangeCost(flightListFind(input), flightCostCreate(first, second));
+                printf("\nПоле изменено!\n");
             } else if (input == 5) {
-                char* input;
+                int input;
+                int f_sec, s_sec;
+                int f_min, s_min;
                 system("clear");
                 printf("Вы выбрали изменить время.\n");
-                printf("Ввод в формате \"20:00-18:30\": ");
-                scanf("%s", input);
+                printf("Введите ID изменяемого поля: ");
+                scanf("%i", &input);
+                printf("\nВвод в формате \"20:00-18:30\": ");
+                scanf("%i:%i-%i:%i", &f_min, &f_sec, &s_min, &s_sec);
+                flightChangeDuration(
+                    flightListFind(input),
+                    flightDurationCreate(
+                        timeCreate(f_min, f_sec),
+                        timeCreate(s_min, s_sec)
+                    )
+                );
+                printf("\nПоле изменено!\n");
             }
         }
 
