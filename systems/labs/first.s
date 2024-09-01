@@ -28,7 +28,7 @@ _start:
         imulq $9, %rdi, %r10 # 9 * 11 = 99, stored in %r10
         imulq %rsi, %r10 # 2 * 99 (from %r10) = 198, stored in %r10
         imulq $4, %rdi, %r11 # 4 * 11 = 44, stored in %r11
-        imulq %rx, %r11 # 44 (from %r11) * 21 = 924, stored in %r11
+        imulq %rdx, %r11 # 44 (from %r11) * 21 = 924, stored in %r11
         addq %r11, %r10 # 198 + 924 = 1122, stored in %r10
         push %r10 # push top expression result to stack
         
@@ -73,7 +73,7 @@ print_digit:
         syscall # call a syscall
         decq %rsi # move to the previous digit
         decq %rdx # decrement digit count
-        jnz print_digits # if there are more digits to print, then repeat
+        jnz print_digit # if there are more digits to print, then repeat
         jmp exit # else exit at the end of the program
 
 exit:
