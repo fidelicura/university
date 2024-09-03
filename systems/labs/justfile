@@ -1,0 +1,11 @@
+first-release:
+    rm -f first.exe
+    as -g first.s -o first.o
+    ld first.o -o first.exe
+    rm first.o
+
+first-debug:
+    as -g first.s -o first.o
+    ld first.o -o first.exe
+    gdb first.exe
+    rm first.o first.exe
