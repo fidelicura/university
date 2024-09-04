@@ -9,3 +9,15 @@ first-debug:
     ld first.o -o first.exe
     gdb first.exe
     rm first.o first.exe
+
+second-release:
+    rm -f second.exe
+    as -g second.s -o second.o
+    ld second.o -o second.exe
+    rm second.o
+
+second-debug:
+    as -g second.s -o second.o
+    ld second.o -o second.exe
+    gdb second.exe
+    rm second.o second.exe
