@@ -46,7 +46,7 @@ _start:
         imulq $2, %r11 # 2 * 13 = 26, stored in %r11
         subq %r11, %r10 # 4 (from %r10) - 26 (from %r11) = -22, stored in %r10
         popq %rax # restore result of top expression into %rax
-        xorq %rdx, %rdx # clear the quotient register
+        xorq %rdx, %rdx # clear the quotient register to not to divide by quotient
         idivq %r10 # 1122 (from %rax) / -22 (from %r10) = -51.0, stored in %rdx
 
         # SECOND ITERATION
@@ -57,7 +57,7 @@ _start:
 
         imulq %rcx, %rdx # -51 (from %rcx) * 21 (from %rdx) = -1071, stored in %rdx
         imulq %rsi, %rsi # 2 (from %rsi) * 2 (from %rsi) = 4, stored in %r10
-        subq %rsi, %rdx # -1071 (from %rsi) - 4 (from %rdx) = -1075, stored in %rdx
+        subq %rsi, %rdx # -1071 (from %rdx) - 4 (from %rsi) = -1075, stored in %rdx
         pushq %rdx # save top expression result via pushing into stack
 
         subq $14, %rdi # 11 (from %rdi) - 14 = -3, stored in %rdi
@@ -65,7 +65,9 @@ _start:
         imulq $2, %rcx # 2 * (-51) (from %rcx) = -102, stored in %rcx
         addq %rcx, %rdi # -48 (from %rcx) + (-102) (from %rdi) = -150, stored in %rdi
         popq %rax # restore result of top expression into %rax
-        cqto # sign extend %rax into %rdx
+        # sign extend %rax into %rdx because we divide negative integer
+        # and we need correct bits up to extension at concatenation of registers
+        cqto
         idivq %rdi # -1075 (from %rax) / (-150) (from %rdi) = 7, stored in %rax
         
         # END OF ITERATIONS
