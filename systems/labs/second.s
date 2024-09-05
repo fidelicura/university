@@ -1,13 +1,15 @@
 # Made by Kirill Bezuglyi in GNU ASM with AT&T syntax for x86-64.
 #
 # Tasks:
+#
 #     ( a + b,   if a / b < 0
 # y = < a * b^2, if a / b = 0
 #     ( 10 + b,  if a / b > 0
 
 .section .text # code goes here
 
-.global _start # set an entry label
+        .global _start # set an entry label
+
 _start:
         jmp first
 

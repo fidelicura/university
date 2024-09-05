@@ -10,14 +10,15 @@
 # y = ────────────────────────── = 7
 #      16 * (11 - 14) + 2 * -51
 
-.section .data # global data goes here
+.section .rodata # global constants go here
 
-msg: .asciz "result is -51 and 7\n" # output text for a user
-msg_len = . - msg # length of output text
+        msg: .asciz "result is -51 and 7\n" # output text for a user
+        msg_len = . - msg # length of output text
 
 .section .text # code goes here
 
-.global _start # set an entry label
+        .global _start # set an entry label
+
 _start:
         # PREPARATIONS
 

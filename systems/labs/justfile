@@ -21,3 +21,20 @@ second-debug:
     ld second.o -o second.exe
     gdb second.exe
     rm second.o second.exe
+
+third-release:
+    rm -f third.exe
+    as -g third.s -o third.o
+    ld third.o -o third.exe
+    rm third.o
+
+third-debug:
+    as -g third.s -o third.o
+    ld third.o -o third.exe
+    gdb third.exe
+    rm third.o third.exe
+
+third-explanation:
+    cc -g -O0 third.c
+    gdb ./a.out
+    rm a.out
