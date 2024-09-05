@@ -38,3 +38,15 @@ third-explanation:
     cc -g -O0 third.c
     gdb ./a.out
     rm a.out
+
+fourth-release:
+    rm -f fourth.exe
+    as -g fourth.s -o fourth.o
+    ld fourth.o -o fourth.exe
+    rm fourth.o
+
+fourth-debug:
+    as -g fourth.s -o fourth.o
+    ld fourth.o -o fourth.exe
+    gdb fourth.exe
+    rm fourth.o fourth.exe
