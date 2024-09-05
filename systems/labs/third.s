@@ -29,8 +29,7 @@ _start:
 
         movq $array_length, %rcx # store a length as a counter for a loop
         L_aux:
-                movsx array_data(, %rcx, INT_SIZE), %edx # store array[i] value in %rdx register, amortized by extension to 64-bit register %rdx
-                movsxd %edx, %rdx # clear upper 32 bits after op
+                movslq array_data(, %rcx, INT_SIZE), %rdx # store array[i] value in %rdx register with amortisation of signed long by upper bits extension to quad register %rdx, due to int value
                 cmpq %r12, %rdx # check if array[i] stored in %rdx is less than first value stored in %r12
                 jl L_first
                 cmpq %r13, %rdx # check if array[i] stored in %rdx is less than second value stored in %r13
