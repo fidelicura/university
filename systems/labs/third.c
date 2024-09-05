@@ -1,3 +1,12 @@
+/*
+ * Made by Kirill Bezuglyi in GNU ASM with AT&T syntax for x86-64.
+ *
+ * Task:
+ *
+ * Find two smallest values and their indexes in array.
+ */
+
+
 #include <limits.h>
 #include <stdio.h>
 

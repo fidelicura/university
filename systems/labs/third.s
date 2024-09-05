@@ -1,8 +1,8 @@
 # Made by Kirill Bezuglyi in GNU ASM with AT&T syntax for x86-64.
 #
-# Tasks:
+# Task:
 #
-#
+# Find two smallest values and their indexes in array.
 
 .section .rodata # global constants go here
 
