@@ -29,7 +29,5 @@ main(void) {
 	printf("first_val = %i, first_idx = %i\n", first_val, first_idx);
 	printf("second_val = %i, second_idx = %i\n", second_val, second_idx);
 
-	unsigned long x = sizeof(int);
-
 	return 0;
 }
