@@ -78,7 +78,7 @@ _start:
 print_message:
         movq $1, %rax # number 1 is a syscall for `write`
         movq $1, %rdi # number 1 is a fd for `stdout`
-        lea msg(%rip), %rsi # address of the message
+        movq $msg, %rsi # address of the message
         movq $msg_len, %rdx # message length
         syscall # call a syscall
         jmp exit # exit at the end of the program
