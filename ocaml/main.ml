@@ -117,7 +117,23 @@ module MyStack = struct
   let peek_then_pop st =
     match peek st with
     | None -> None
-    | Some elem -> Some (elem, match pop st with | None -> failwith "Unreachable" | Some st -> st)
+    | Some elem -> Some (elem, match pop st with
+      | None -> failwith "Unreachable"
+      | Some st -> st)
+end
+
+module type MyStack = sig
+  type 'a t
+
+  val empty : 'a t
+
+  val push : 'a -> 'a t -> 'a t
+
+  val peek : 'a t -> 'a option
+
+  val pop : 'a t -> 'a t option
+
+  val peek_than_pop : 'a t -> ('a * 'a t) option
 end
 
 let value =
