@@ -40,7 +40,6 @@ module MyTree = struct
     | Node (_, _, _), Leaf | Leaf, Node (_, _, _) -> false
     | Node (_, l1, r1), Node (_, l2, r2) -> (same_shape l1 l2) && (same_shape r1 r2);;
   (* val same_shape : 'a tree -> 'b tree -> bool = <fun> *)
-
 end
 
 let list_max lst =
