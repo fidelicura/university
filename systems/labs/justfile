@@ -15,4 +15,4 @@ build name:
     just clean {{ name }}
     as -adhln -g {{ name }}/{{ src }} -o {{ name }}/{{ obj }} > {{ name }}/{{ lst }}
     ld {{ name }}/{{ obj }} -o {{ name }}/{{ exe }}
-    gdb {{ name }}/{{ exe }} -ex "break _start" -ex "lay regs"
+    gdb {{ name }}/{{ exe }} -ex "b _start" -ex "lay regs" -ex "r" -q
