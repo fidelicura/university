@@ -18,18 +18,28 @@ int
 main(void) {
 	int first_val, second_val;
 	int first_idx, second_idx;
-	first_val = second_val = INT_MAX;
-	first_idx = second_idx = -1;
 
-	for (int i = 0; i < SIZE; i++) {
-		if (array[i] < first_val) {
-			// only if array size is 1, but we don't handle that
-			// second_val = first_val;
-			// second_idx = first_idx;
+	if (array[SIZE - 1] < array[SIZE - 2]) {
+		first_val = array[SIZE - 1];
+		second_val = array[SIZE - 2];
 
+		first_idx = SIZE - 1;
+		second_idx = SIZE - 2;
+	} else {
+		first_val = array[SIZE - 2];
+		second_val = array[SIZE - 1];
+
+		first_idx = SIZE - 2;
+		second_idx = SIZE - 1;
+	}
+
+	for (int i = SIZE - 3; i >= 0; i--) {
+		if (array[i] <= first_val) {
+			second_val = first_val;
+			second_idx = first_idx;
 			first_val = array[i];
 			first_idx = i;
-		} else if (array[i] < second_val && array[i] != first_val) {
+		} else if (array[i] < second_val) {
 			second_val = array[i];
 			second_idx = i;
 		}
