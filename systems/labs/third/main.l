@@ -7,7 +7,7 @@
    7              	.section .rodata
    8              	
    9              	        # platform-specific for x86-64
-  10              	        .set LLONG_MAX, 2147483647
+  10              	        .set LLONG_MAX, 9223372036854775807
   11              	        .set LLONG_SIZE, 8
   12              	
   13              	        .set DEFAULT_IDX, -1
@@ -23,10 +23,10 @@
   19              	
   20              	.section .data
   21              	
-  22 0000 FFFFFF7F 	        first_val: .8byte LLONG_MAX
-  22      00000000 
-  23 0008 FFFFFF7F 	        second_val: .8byte LLONG_MAX
-  23      00000000 
+  22 0000 FFFFFFFF 	        first_val: .8byte LLONG_MAX
+  22      FFFFFF7F 
+  23 0008 FFFFFFFF 	        second_val: .8byte LLONG_MAX
+  23      FFFFFF7F 
   24              	
   25 0010 FFFFFFFF 	        first_idx: .8byte DEFAULT_IDX
   25      FFFFFFFF 

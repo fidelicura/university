@@ -7,7 +7,7 @@
 .section .rodata
 
         # platform-specific for x86-64
-        .set LLONG_MAX, 2147483647
+        .set LLONG_MAX, 9223372036854775807
         .set LLONG_SIZE, 8
 
         .set DEFAULT_IDX, -1
