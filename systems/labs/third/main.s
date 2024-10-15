@@ -1,4 +1,4 @@
-# Made by Kirill Bezuglyi in GNU ASM with AT&T syntax for x86-64.
+# Made by Kirill Bezuglyi in GNU ASM with AT&T syntax for x86-64 Linux.
 #
 # Task:
 #
