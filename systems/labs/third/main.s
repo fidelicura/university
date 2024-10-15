@@ -32,7 +32,7 @@
 _start:
         movq  $array_length, %rcx  # store a length as a counter for a loop
         L_aux:
-                movslq array_data(, %rcx, LLONG_SIZE), %rdx  # %rdx = array[i] with amortisation of signed long by upper bits extension to quad register %rdx, due to int value
+                movslq array_data(, %rcx, LLONG_SIZE), %rdx  # save array[i] into %rdx
                 cmpq first_val, %rdx                       # array[i] (from %rdx) is less than first (from %r12)
                 jle L_first
                 cmpq second_val, %rdx                      # array[i] (from %rdx) is less than second (from %r13)
