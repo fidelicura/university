@@ -9,10 +9,10 @@ exe := "main.a"
 lst := "main.l"
 
 clean name:
-    rm -f {{ name }}/{{ obj }} {{ name }}/{{ exe }} {{ name }}/{{ lst }}
+    @rm -f {{ name }}/{{ obj }} {{ name }}/{{ exe }} {{ name }}/{{ lst }}
 
 build name:
-    just clean {{ name }}
-    as -adhln -g {{ name }}/{{ src }} -o {{ name }}/{{ obj }} > {{ name }}/{{ lst }}
-    ld {{ name }}/{{ obj }} -o {{ name }}/{{ exe }}
-    gdb {{ name }}/{{ exe }} -ex "b _start" -ex "lay regs" -ex "r" -q
+    @just clean {{ name }}
+    @as -adhln -g {{ name }}/{{ src }} -o {{ name }}/{{ obj }} > {{ name }}/{{ lst }}
+    @ld {{ name }}/{{ obj }} -o {{ name }}/{{ exe }}
+    @gdb {{ name }}/{{ exe }} -ex "b _start" -ex "lay regs" -ex "r" -q
