@@ -11,6 +11,11 @@
 # So, `%rdi` is an array pointer, `%rsi` is a first value with
 # `%rdx` as it's index, `%rcx` is an array length, `%r8` is
 # a second value with `%r9` as it's index.
+# 
+# Expectations:
+#
+# (first_value, first_index) = (-10, 0).
+# (second_value, second_index) = (-7, 8).
 
 .section .rodata
 
@@ -38,18 +43,18 @@
         .global _start
 
 _start:
-        leaq   array_data, %rdi    # store a pointer to an array
-        movq   array_length, %rcx  # load an array length
-        movq   first_value, %rsi   # copy initial value of first value
-        movq   first_index, %rdx   # copy initial value of first index
-        movq   second_value, %r8   # copy initial value of second value
-        movq   second_index, %r9   # copy initial value of second index
+        movq   $array_data, %rdi    # store a pointer to an array
+        movq   $array_length, %rcx  # load an array length
+        movq   first_value, %rsi    # copy initial value of first value
+        movq   first_index, %rdx    # copy initial value of first index
+        movq   second_value, %r8    # copy initial value of second value
+        movq   second_index, %r9    # copy initial value of second index
         callq  main
         jmp    exit
 
 main:
-        L_aux:
-                movslq  %rdi(, %rcx, LLONG_SIZE), %rax  # save array[i] into %rax
+        L_main_aux:
+                movslq  (%rdi, %rcx, LLONG_SIZE), %rax  # save array[i] into %rax
                 cmpq    %rsi, %rax                      # array[i] (from %rax) is less than first (from %r12)
                 jle     L_main_first
                 cmpq    %r8, %rax                       # array[i] (from %rax) is less than second (from %r13)
@@ -61,7 +66,7 @@ L_main_first:
         movq  %rdx, %r10  # copy previous first index into temp register
         movq  %rbx, %r8   # copy from temp register in second value
         movq  %r10, %r9   # copy from temp register in second index
-        movq  %rdx, %rsi  # store array[i] value as first value
+        movq  %rax, %rsi  # store array[i] value as first value
         movq  %rcx, %rdx  # store i index as first index
         jmp   L_main_step
 
