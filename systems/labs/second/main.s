@@ -8,9 +8,9 @@
 
 .section .bss
 
-        .lcomm a, 8
-        .lcomm b, 8
-        .lcomm y, 8
+        .lcomm a, 1
+        .lcomm b, 1
+        .lcomm y, 1
 
 .section .text
 
@@ -24,63 +24,51 @@ _start:
 /* CONDITION LABELS */
 
 first:
-        movl   $0x0AF3B2AA, a    # set lower half of a
-        movl   $0x3CDB2CAD, a+4  # set upper half of a
-        # a = 4385147783900017322
-        movl   $0x00000000, b    # set lower half of b
-        movl   $0xE0000000, b+4  # set upper half of b
-        # b = -2305843009213693952
-        movq   a, %rax           # %rax = a
-        movq   b, %rbx           # %rbx = b
-        cqto
-        idivq  %rbx              # a (from %rax) / b (from %rbx) = result, stored in %rax
-        testq  %rax, %rax        # check if result (from %rax) is zero via logical and
+        movb   $4, a     # set a equal to 4
+        movb   $-2, b    # set b equal to -2
+        movb   a, %al    # al = a
+        movb   b, %bl    # bl = b
+        cbw
+        idivb  %bl       # a (from %ax) / b (from %bl) = result, stored in %al
+        testb  %al, %al  # check if result (from %al) is zero via logical and
         jl     lesser
 
 second:
-        movl   $0x00000000, a    # set lower half of a
-        movl   $0x00000000, a+4  # set upper half of a
-        # a = 0
-        movl   $0xEE538000, b    # set lower half of b
-        movl   $0x200AA87B, b+4  # set upper half of b
-        # b = 2308843009213693952
-        movq   a, %rax           # %rax = a
-        movq   b, %rbx           # %rbx = b
-        cqto
-        idivq  %rbx              # a (from %rax) / b (from %rbx) = result, stored in %rax
-        testq  %rax, %rax        # check if result (from %rax) is zero via logical and
+        movb   $0, a     # set a equal to 0
+        movb   $7, b     # set b equal to 7
+        movb   a, %al    # al = a
+        movb   b, %bl    # bl = b
+        cbw
+        idivb  %bl       # a (from %ax) / b (from %bl) = result, stored in %al
+        testb  %al, %al  # check if result (from %al) is zero via logical and
         je     equal
 
 third:
-        movl   $0x0AF3B2AA, a    # set lower half of a
-        movl   $0x3CDB2CAD, a+4  # set upper half of a
-        # a = 4385147783900017322
-        movl   $0xFBDE6000, b    # set lower half of b
-        movl   $0x20000574, b+4  # set upper half of b
-        # b = 2305849009213693952
-        movq   a, %rax           # %rax = a
-        movq   b, %rbx           # %rbx = b
-        cqto
-        idivq  %rbx              # %rax (a) / %rbx (b) = result, stored in %rax
-        testq  %rax, %rax        # check if result (from %rax) is zero via logical and
+        movb   $8, a     # set a equal to 8
+        movb   $4, b     # set b equal to 4
+        movb   a, %al    # al = a
+        movb   b, %bl    # bl = b
+        cbw
+        idivb  %bl       # a (from %ax) / b (from %bl) = result, stored in %al
+        testb  %al, %al  # check if result (from %al) is zero via logical and
         jg     greater
 
 /* COMPARE LABELS */
 
 lesser:
-        addq  a, %rbx  # a + value from %rbx = result, stored in %rbx
-        movq  %rbx, y  # y = 2079304774686323370
+        addb  a, %bl  # a + %bl = result, stored in %bl
+        movb  %bl, y  # y = %bl
         jmp   second
 
 equal:
-        imulq  %rbx, %rbx  # %rbx^2 = result, stored in %rbx
-        imulq  %rax, %rbx  # value from %rax * value from %rbx = result, stored in %rbx
-        movq   %rbx, y     # y = 0
+        imulw  %bx, %bx  # %bl^2 = result, stored in %bl
+        imulw  %ax, %bx  # value from %al * value from %bl = result, stored in %bl
+        movw   %bx, y    # y = %bl
         jmp    third
 
 greater:
-        addq  $10, %rbx  # 10 + value from %rbx = result, stored in %rbx
-        movq  %rbx, y    # y = 2305849009213693962
+        addb  $10, %bl  # 10 + value from %rbx = result, stored in %rbx
+        movb  %bl, y    # y = %bl
         jmp   exit
 
 /* PROLOGUE JUMP */
