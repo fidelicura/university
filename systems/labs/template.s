@@ -4,14 +4,14 @@
 #
 # ...
 
-.section .text # code goes here
+.section .text
 
-        .global _start # set an entry label
+        .global _start
 
 _start:
-        jmp exit # go to end of a program
+        jmp exit
 
 exit:
-        movq $60, %rax # number 60 is a syscall for `exit`
-        xorq %rdi, %rdi # make return code a `0` for success
-        syscall # call a syscall
+        movq     $60, %rax   # number for `exit`
+        xorq     %rdi, %rdi  # success return code
+        syscall

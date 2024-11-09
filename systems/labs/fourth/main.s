@@ -17,13 +17,13 @@
 # (first_value, first_index) = (-10, 0).
 # (second_value, second_index) = (-7, 8).
 
-.section .rodata
-
         # platform-specific for x86-64
         .set LLONG_MAX, 9223372036854775807
         .set LLONG_SIZE, 8
 
         .set DEFAULT_INDEX, -1
+
+.section .rodata
 
         array_data: .8byte -10, 40, -2, 6, 80, -1, 3, 12, -7, 5
         array_info:
