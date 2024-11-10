@@ -2,10 +2,9 @@
 #
 # Task:
 #
-# Calculate the sums of all even elements from the first array with the
-# odd elements from the second array and swap last elements from both
-# arrays with each other if the first sum is greater than the second one.
-# Implement as a procedure compatible with `cdecl` calling convention.
+# Sort an array in order of odd (by index) elements first, then
+# even (again, by index) ones, saving the initial order.
+# Determine amount and mean of non-negative numbers in an array.
 
         .set LLONG_SIZE, 8
 
