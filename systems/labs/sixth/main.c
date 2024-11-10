@@ -20,6 +20,8 @@
 		printf("%d ", arr[i]); \
 	} \
 	printf("\n");
+#define IS_ODD(num) (num & 1)
+#define IS_EVEN(num) (!IS_ODD(num))
 
 #define LEN (10)
 #define LEN_AMORTIZED (LEN - 1)
@@ -39,9 +41,10 @@ main(void) {
 			mean += elem;
 		}
 
-		if (!(elem & 1)) {
+		if (IS_EVEN(elem)) {
 			int j = i;
-			while (j < LEN_AMORTIZED && (array[j+1] & 1)) {
+			while (j < LEN_AMORTIZED && IS_ODD(array[j+1])) {
+				printf("%d swaps with %d\n", j, j+1);
 				temp = array[j];
 				array[j] = array[j+1];
 				array[j+1] = temp;
