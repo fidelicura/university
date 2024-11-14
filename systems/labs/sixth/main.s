@@ -97,14 +97,6 @@ L_main_inner_step:
         movq      (%rbx, %rdi, LLONG_SIZE), %r13   # store `array[j+1]`
         even_odd  %r13b, L_main_step, L_main_swap
 
-# L_main_cond:
-#         movq   (%r10), %rax  # load address of mean variable
-#         cqto
-#         idivq  (%r11)        # calculate mean by sum divided by amount
-#         movq   %rax, (%r10)  # store mean in a variable
-#         movq   (%r11), %rbx  # load address of amount variable
-#         movq   %rbx, (%r11)  # store amount in a variable
-#         jmp    L_main_exit
 L_main_cond:
         cvtsi2sd  (%r10), %xmm0  # load value of mean variable as float
         cvtsi2sd  (%r11), %xmm1  # load value of amount variable as float
