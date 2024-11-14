@@ -8,7 +8,10 @@
 #
 # Expectations:
 #
-# 1) [-23, 38, -56, -79, 8, 91, -40, -86, -90, 61] => [-23, -79, 91, 61, 38, -56, 8, -40, -86, -90]
+# 1) [-23, 38, -56, -79, 8, 91, -40, -86, -90, 61] => [-23, -79, 91, 61, 38, -56, 8, -40, -86, -90],
+# (mean, amount) = (49.5, 4),
+# 2) [-93, 17, -1, -9, 44, 46] => [-93, 17, -1, -9, 44, 46],
+# (mean, amount) = (35.6, 3).
 
         .macro even_odd reg, even, odd
                 testb $1, \reg
@@ -20,32 +23,39 @@
 
 .section .data
 
-        array_data: .8byte -23, 38, -56, -79, 8, 91, -40, -86, -90, 61
-        # array_data: .8byte -93, 17, -1, -9, 44, 46, 11
-        array_info:
-                array_size = array_info - array_data
-                array_length = array_size / LLONG_SIZE - 1 # amortized for zero-based index
+        first_array_data: .8byte -23, 38, -56, -79, 8, 91, -40, -86, -90, 61
+        first_array_info:
+                first_array_size = first_array_info - first_array_data
+                first_array_length = first_array_size / LLONG_SIZE - 1 # amortized for zero-based index
+
+        second_array_data: .8byte -93, 17, -1, -9, 44, 46
+        second_array_info:
+                second_array_size = second_array_info - second_array_data
+                second_array_length = second_array_size / LLONG_SIZE - 1 # amortized for zero-based index
 
         .equ mean, 0
         .equ amount, 0
 
-        block:
+        first_block:
                 .8byte amount
                 .8byte mean
-                .8byte array_length
-                .8byte array_data
+                .8byte first_array_length
+                .8byte first_array_data
+
+        second_block:
+                .8byte amount
+                .8byte mean
+                .8byte second_array_length
+                .8byte second_array_data
 
 .section .text
 
         .global _start
 
 _start:
-        leaq   block(%rip), %rax    # load amount variable
-        pushq  %rax                 # store mean variable
-        leaq   block+8(%rip), %rax  # load mean variable
-        pushq  %rax                 # store mean variable
-        pushq  block+16(%rip)       # store array length value
-        pushq  block+24(%rip)       # store pointer to the array
+        pushq  $first_block   # load first parameters block
+        callq  main
+        pushq  $second_block  # load second parameters block
         callq  main
         jmp    exit
 
@@ -54,11 +64,12 @@ main:
         pushq  %rbp
         movq   %rsp, %rbp
         # } prologue
-        movq   16(%rbp), %rbx  # load pointer to the array
-        movq   24(%rbp), %rcx  # load array length value
-        movq   %rcx, %r15      # save array length for further
-        movq   32(%rbp), %r10  # load mean variable
-        movq   40(%rbp), %r11  # load amount variable
+        movq   16(%rbp), %rax  # store direct block address
+        movq   24(%rax), %rbx  # load pointer to the array
+        movq   16(%rax), %rcx  # load array length value
+        movq   %rcx, %r15      # store array length for future
+        leaq   8(%rax), %r10   # load mean variable address
+        leaq   (%rax), %r11    # load amount variable address
         L_main_aux_start:
                 movq      (%rbx, %rcx, LLONG_SIZE), %rax  # store `array[i]` into %rax
                 testq     %rax, %rax
@@ -86,14 +97,20 @@ L_main_inner_step:
         movq      (%rbx, %rdi, LLONG_SIZE), %r13   # store `array[j+1]`
         even_odd  %r13b, L_main_step, L_main_swap
 
+# L_main_cond:
+#         movq   (%r10), %rax  # load address of mean variable
+#         cqto
+#         idivq  (%r11)        # calculate mean by sum divided by amount
+#         movq   %rax, (%r10)  # store mean in a variable
+#         movq   (%r11), %rbx  # load address of amount variable
+#         movq   %rbx, (%r11)  # store amount in a variable
+#         jmp    L_main_exit
 L_main_cond:
-        movq  (%r10), %rax         # load address of mean variable
-        cqto
-        divq  (%r11)               # calculate mean by sum divided by amount
-        movq  %rax, block+8(%rip)  # store mean in a variable
-        movq  (%r11), %rbx         # load address of amount variable
-        movq  %rbx, block(%rip)    # store amount in a variable
-        jmp   L_main_exit
+        cvtsi2sd  (%r10), %xmm0  # load value of mean variable as float
+        cvtsi2sd  (%r11), %xmm1  # load value of amount variable as float
+        divsd     %xmm1, %xmm0   # calculate a mean value as float
+        movsd     %xmm0, (%r10)  # store mean value in a mean variable
+        jmp       L_main_exit
 
 L_main_swap:
         pushq  %r15
