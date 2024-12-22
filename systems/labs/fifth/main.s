@@ -21,7 +21,7 @@
                 first_array_size = first_array_info - first_array_data
                 first_array_length = first_array_size / LLONG_SIZE - 1 # amortized for zero-based index
 
-        second_array_data: .8byte -93, 17, -1, -9, 44, 46, 11
+        second_array_data: .8byte 93, -17, -1, -9, 44, -46, 11
         second_array_info:
                 second_array_size = second_array_info - second_array_data
                 second_array_length = second_array_size / LLONG_SIZE - 1 # amortized for zero-based index
