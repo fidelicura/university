@@ -1,0 +1,15 @@
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.GeneratedMSBuildEditorConfig.editorconfig
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.AssemblyInfoInputs.cache
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.AssemblyInfo.cs
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.csproj.CoreCompileInputs.cache
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.sourcelink.json
+/home/kbezuglyi/Desktop/university/sharp/bin/Debug/net9.0/sharp
+/home/kbezuglyi/Desktop/university/sharp/bin/Debug/net9.0/sharp.deps.json
+/home/kbezuglyi/Desktop/university/sharp/bin/Debug/net9.0/sharp.runtimeconfig.json
+/home/kbezuglyi/Desktop/university/sharp/bin/Debug/net9.0/sharp.dll
+/home/kbezuglyi/Desktop/university/sharp/bin/Debug/net9.0/sharp.pdb
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.dll
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/refint/sharp.dll
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.pdb
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/sharp.genruntimeconfig.cache
+/home/kbezuglyi/Desktop/university/sharp/obj/Debug/net9.0/ref/sharp.dll
