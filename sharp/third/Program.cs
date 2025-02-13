@@ -72,21 +72,21 @@ class Program
 	public static void Main()
 	{
         First first = new();
-        Debug.Assert(first.Calc(3) == 9, "First.Calc(3) should return 9");
+        Debug.Assert(first.Calc(3) == 9, "should return 9");
 
         int value = 4;
         First.Calc(ref value);
-        Debug.Assert(value== 16, "First.Calc(ref 4) should set refValue to 16");
+        Debug.Assert(value == 16, "should set `value` to 16");
 
         int[] initial = [-2, 0, 4, -7];
         First.Calc(1, ref initial);
 		int[] expected = [-7, -2, 0, 1, 4];
-        Debug.Assert(CompareArrays(initial, expected), "First.Calc should insert element 1 and sort array");
+        Debug.Assert(CompareArrays(initial, expected), "should insert element 1 and sort an array");
 
         Second second = new();
-        Debug.Assert(second.Calc(3) == 729, "Second.Calc(3) should return 729"); // (3*3)^3 = 9^3 = 729
+        Debug.Assert(second.Calc(3) == 729, "should return 729"); // (3*3)^3 = 9^3 = 729
 
         Third third = new();
-        Debug.Assert(third.Calc(3) == 729, "Third.Calc(3) should return 729, since it inherits from Second");
+        Debug.Assert(third.Calc(3) == 729, "should return 729, since it inherits from class `Second`");
 	}
 }
