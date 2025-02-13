@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace sharp;
+namespace first;
 
 using FieldsTypesTupled = (string, int, float, char);
 
