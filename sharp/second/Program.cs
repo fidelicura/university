@@ -1,11 +1,11 @@
-﻿using System.Runtime.CompilerServices;
+﻿#pragma warning disable 0659
+
+using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using System.Text;
 
 namespace second;
 
-// we don't care to override `Object.GetHashCode` method for now 
-#pragma warning disable 0659
 public class Human : IEquatable<Human>
 {
 	readonly private string? Name;

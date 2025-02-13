@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿#pragma warning disable 8603
+
+using System.Diagnostics;
 
 namespace first;
 
@@ -31,7 +33,6 @@ readonly public struct Option<T> where T : notnull
 	/// <summary>
 	/// SAFETY: does not check if `this` contains a value.
 	/// </summary>
-	#pragma warning disable 8603 // see SAFETY doc-comment
 	readonly public T UnwrapUnchecked()
 	{
 		return value;
