@@ -52,42 +52,42 @@ class Program
 {
     async static Task Main()
     {
-		// fill collection
+        // fill collection
         Elements collection = [];
         for (int i = 1; i <= 12; i++)
             collection.Add(new Element($"Element-{i}", i));
 
-		// print collection information
+        // print collection information
         Console.WriteLine("Initial collection:");
         collection.PrintAll();
 
-		// insert at the middle of collection
+        // insert at the middle of collection
         collection.Insert(5, new Element("Inserted Element", 99));
         Console.WriteLine("\nCollection after insertion:");
         collection.PrintAll();
 
-		// serialize the collection
+        // serialize the collection
         string filePath = "elements.dat";
         await collection.SerializeAsync(filePath);
 
-		// remove from the middle of collection
+        // remove from the middle of collection
         collection.RemoveAt(3);
         Console.WriteLine("\nCollection after removal:");
         collection.PrintAll();
 
-		// copy collection into an array
+        // copy collection into an array
         Element[] arrayCopy = [..collection];
         Console.WriteLine("\nCopied array:");
         foreach (var element in arrayCopy)
         element.PrintName();
 
-		// clear the collection
+        // clear the collection
         collection.Clear();
         Console.WriteLine("\nCollection after clearing:");
         Console.WriteLine("Count: " + collection.Count);
         collection.PrintAll();
 
-		// deserialize collection
+        // deserialize collection
         await collection.DeserializeAsync(filePath);
         Console.WriteLine("\nDeserialized collection:");
         collection.PrintAll();
