@@ -45,18 +45,19 @@ derivative_f(double x)
 void
 root_approximations(double *x1, double *x2, double *roots, int *root_count)
 {
-    int iteration = 0;
+	int iteration = 0;
 
-    for (int i = FROM; i <= UPTO; i += STEP)
-        if (*root_count <= 2 && ((initial_f(i) > 0 && initial_f(i + STEP) < 0) ||
-                                (initial_f(i) < 0 && initial_f(i + STEP) > 0))) {
-            roots[*root_count] = (2 * i + STEP) / 2;
-            (*root_count)++;
-        }
+	for (int i = FROM; i <= UPTO; i += STEP) {
+	        if (*root_count <= 2 && ((initial_f(i) > 0 && initial_f(i + STEP) < 0) ||
+	                                (initial_f(i) < 0 && initial_f(i + STEP) > 0))) {
+			roots[*root_count] = (2 * i + STEP) / 2;
+			(*root_count)++;
+	        }
+	}
 
 
-    *x1 = roots[1];
-    *x2 = iterative_f(*x1);
+	*x1 = roots[1];
+	*x2 = iterative_f(*x1);
 }
 
 void
